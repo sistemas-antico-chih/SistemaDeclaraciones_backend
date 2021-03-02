@@ -1,23 +1,14 @@
-#### Stage 1: Build the Application
+FROM node:15-alpine
 
-FROM node:15
+MAINTAINER Sergio Rodríguez <sergio.rdzsg@gmail.com>
 
-# Update packages
-RUN apt-get update && apt-get upgrade -y && apt-get install -y make gcc build-essential
+ADD . /declaraciones
+WORKDIR /declaraciones
 
-# Set the current working directory inside the image
-WORKDIR /usr/app
+RUN yarn add global yarn \
+&& yarn install \
+&& yarn cache clean
 
-ARG NODE_ENV
+EXPOSE ${PORT}
 
-# First copy package.json and package-lock.json to optimize cache hits
-COPY package*.json ./
-
-
-#### Stage 2: Install dependencies.
-RUN npm install
-
-# After installing dependencies, copy everything
-COPY ./ ./
-
-EXPOSE 3000
+CMD ["yarn", "start"]
