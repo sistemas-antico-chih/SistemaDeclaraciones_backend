@@ -95,7 +95,20 @@ export class DeclaracionRepository {
       owner: user,
     };
 
-    const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, {new: true, upsert: true});
+    const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
+       $set:{
+          datosGenerales:{
+             nombre: user.nombre,
+             primerApellido: user.primerApellido,
+             segundoApellido: user.segundoApellido,
+             curp: user.curp,
+             rfc: {
+                rfc: user.rfc.substring(0,10),
+                homoClave: user.rfc.substring(10,13)
+             }
+          }
+       }
+    }, {new: true, upsert: true});
     user.declaraciones.push(declaracion);
     user.save();
 

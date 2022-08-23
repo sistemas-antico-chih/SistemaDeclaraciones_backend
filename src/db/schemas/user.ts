@@ -32,11 +32,13 @@ export const UserSchema = new Schema({
     type: String,
     required: true,
     uppercase: true,
+    unique: true,
   },
   rfc: {
     type: String,
     required: true,
     uppercase: true,
+    unique: true,
   },
 
   // ----- READ ONLY ------
