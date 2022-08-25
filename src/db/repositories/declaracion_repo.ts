@@ -95,9 +95,14 @@ export class DeclaracionRepository {
       owner: user,
     };
 
+    var anio=new Date().getFullYear();
+    console.log(anio);
+
     const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
        $set:{
+          anioEjercicio: anio,
           datosGenerales:{
+             //anioEjercicio: anio,
              nombre: user.nombre,
              primerApellido: user.primerApellido,
              segundoApellido: user.segundoApellido,
@@ -132,6 +137,7 @@ export class DeclaracionRepository {
     }
 
     declaracion.firmada = true;
+
     declaracion.save();
     try {
       const responsePreview = await ReportsClient.getReport(declaracion);
