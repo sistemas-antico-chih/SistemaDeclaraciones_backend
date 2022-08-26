@@ -95,14 +95,24 @@ export class DeclaracionRepository {
       owner: user,
     };
 
-    var anio=new Date().getFullYear();
-    console.log(anio);
-
-    const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
-       $set:{
+      var anio=new Date().getFullYear();
+      var aux= await DeclaracionModel.count({'owner':user._id});
+      console.log(aux);
+      var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {},{new: true, upsert: true});
+      var aux2= await DeclaracionModel.count({'owner':user._id});
+      console.log(aux2);
+      if (aux === aux2){
+        console.log('existe');
+        user.declaraciones.push(declaracion);
+        user.save();
+        return declaracion;
+      }
+      else if( aux !== aux2){
+        console.log('no existe');
+        declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
+        $set:{
           anioEjercicio: anio,
           datosGenerales:{
-             //anioEjercicio: anio,
              nombre: user.nombre,
              primerApellido: user.primerApellido,
              segundoApellido: user.segundoApellido,
@@ -111,13 +121,13 @@ export class DeclaracionRepository {
                 rfc: user.rfc.substring(0,10),
                 homoClave: user.rfc.substring(10,13)
              }
+            }
           }
-       }
-    }, {new: true, upsert: true});
-    user.declaraciones.push(declaracion);
-    user.save();
-
-    return declaracion;
+        }, {new: true, upsert: true});
+        user.declaraciones.push(declaracion);
+        user.save();
+        return declaracion;
+     }
   }
 
   public static async sign(declaracionID: string, password: string, userID: string): Promise<Record<string, any> | null> {
@@ -135,10 +145,19 @@ export class DeclaracionRepository {
     if (!BCrypt.compare(password, user.password)) {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
+    
+    if(declaracion.tipoDeclaracion === 'INICIAL'){
+      console.log("llega");
+      if(declaracion.datosEmpleoCargoComision === 'undefined'){
+        console.log('NO HAY DATOSD EMPLEO');
+      }
+    }
 
     declaracion.firmada = true;
 
     declaracion.save();
+
+
     try {
       const responsePreview = await ReportsClient.getReport(declaracion);
       await SendgridClient.sendDeclarationFile(user.username, responsePreview.toString('base64'));
