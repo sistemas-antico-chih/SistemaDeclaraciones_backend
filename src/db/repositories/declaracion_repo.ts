@@ -97,15 +97,12 @@ export class DeclaracionRepository {
 
       var anio=new Date().getFullYear();
       var aux= await DeclaracionModel.count({'owner':user._id});
-      console.log(aux);
       var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {},{new: true, upsert: true});
       var aux2= await DeclaracionModel.count({'owner':user._id});
-      console.log(aux2);
       if (aux === aux2){
         console.log('existe');
         user.declaraciones.push(declaracion);
         user.save();
-        return declaracion;
       }
       else if( aux !== aux2){
         console.log('no existe');
@@ -126,8 +123,8 @@ export class DeclaracionRepository {
         }, {new: true, upsert: true});
         user.declaraciones.push(declaracion);
         user.save();
-        return declaracion;
      }
+     return declaracion;
   }
 
   public static async sign(declaracionID: string, password: string, userID: string): Promise<Record<string, any> | null> {
@@ -146,12 +143,12 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
     
-    if(declaracion.tipoDeclaracion === 'INICIAL'){
+    /*if(declaracion.tipoDeclaracion === 'INICIAL'){
       console.log("llega");
       if(declaracion.datosEmpleoCargoComision === 'undefined'){
         console.log('NO HAY DATOSD EMPLEO');
       }
-    }
+    }*/
 
     declaracion.firmada = true;
 
