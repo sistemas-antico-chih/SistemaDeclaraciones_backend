@@ -96,16 +96,14 @@ export class DeclaracionRepository {
     };
 
       var anio=new Date().getFullYear();
-      var aux= await DeclaracionModel.count({'owner':user._id});
+      var aux= await DeclaracionModel.countDocuments({'owner':user._id});
       var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {},{new: true, upsert: true});
-      var aux2= await DeclaracionModel.count({'owner':user._id});
+      var aux2= await DeclaracionModel.countDocuments({'owner':user._id});
       if (aux === aux2){
-        console.log('existe');
         user.declaraciones.push(declaracion);
         user.save();
       }
       else if( aux !== aux2){
-        console.log('no existe');
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
         $set:{
           anioEjercicio: anio,
@@ -143,17 +141,34 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
     
-    /*if(declaracion.tipoDeclaracion === 'INICIAL'){
-      console.log("llega");
-      if(declaracion.datosEmpleoCargoComision === 'undefined'){
-        console.log('NO HAY DATOSD EMPLEO');
+    if(declaracion.datosGenerales){
+      if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico 
+        || !declaracion.datosGenerales.telefono){
+        throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
-    }*/
-
+    }
+    if(!declaracion.domicilioDeclarante){
+      throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
+    }
+    if(!declaracion.datosCurricularesDeclarante){
+        throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
+    }
+    if(!declaracion.datosEmpleoCargoComision){
+      throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
+    }
+    if(!declaracion.experienciaLaboral){
+      throw new CreateError.Forbidden('FALTA CAPTURAR EXPERIENCIA LABORAL');
+    }
+    if(!declaracion.ingresos){
+      throw new CreateError.Forbidden('FALTA CAPTURAR INGRESOS');
+    }
+    if(declaracion.tipoDeclaracion !== 'MODIFICACION'){
+      if(!declaracion.actividadAnualAnterior){
+        throw new CreateError.Forbidden('FALTA CAPTURAR ACTIVIDAD ANUAL ANTERIOR');
+      }
+    }
     declaracion.firmada = true;
-
     declaracion.save();
-
 
     try {
       const responsePreview = await ReportsClient.getReport(declaracion);
