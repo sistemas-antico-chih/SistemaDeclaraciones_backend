@@ -140,9 +140,9 @@ export class DeclaracionRepository {
     if (!BCrypt.compare(password, user.password)) {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
-    
+
     if(declaracion.datosGenerales){
-      if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico 
+      if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
         || !declaracion.datosGenerales.telefono){
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
