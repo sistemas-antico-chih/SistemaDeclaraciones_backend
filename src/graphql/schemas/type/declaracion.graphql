@@ -632,7 +632,6 @@ type Declaracion {
   createdAt: Date!
   updatedAt: Date!
   owner: User!
-
   anioEjercicio: Int
   datosGenerales: DatosGenerales
   domicilioDeclarante: DomicilioDeclarante

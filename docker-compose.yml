@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   reports:
     build:
@@ -7,15 +6,13 @@ services:
       args:
         - NODE_ENV=${NODE_ENV}
     ports:
-      - 3252:3252
+      - 127.0.0.1:3035:3035
     restart: unless-stopped
-
   elasticsearch:
     image: elasticsearch:7.11.1
     restart: unless-stopped
     environment:
-      - ELASTIC_PASSWORD=$ELASTIC_SEARCH_PASSWORD
-      - xpack.security.enabled=true
+      - xpack.security.enabled=false
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -30,9 +27,8 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
     ports:
-      - 9252:9200
-      - 9352:9300
-
+      - 127.0.0.1:9235:9200
+      - 127.0.0.1:9335:9300
   app:
     build:
       context: ./
