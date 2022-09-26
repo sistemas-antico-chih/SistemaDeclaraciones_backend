@@ -104,10 +104,10 @@ export class DeclaracionRepository {
         user.save();
       }
       else if( aux !== aux2){
-        var hasNull = 0;
+        var hasNull = "0";
         console.log(user.segundoApellido);
         if(user.segundoApellido === null || user.segundoApellido ===""){
-          hasNull = 1;  
+          hasNull = "1";  
         }
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
         $set:{
