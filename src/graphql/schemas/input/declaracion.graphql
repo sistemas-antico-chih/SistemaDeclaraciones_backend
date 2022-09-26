@@ -44,7 +44,6 @@ input DatosGeneralesInput {
   segundoApellido: LimitedString
   curp: LimitedString
   rfc: RFCInput
-  hasNull: Int
   correoElectronico: CorreoElectronicoInput
   telefono: TelefonoInput
   situacionPersonalEstadoCivil: CatalogoInput

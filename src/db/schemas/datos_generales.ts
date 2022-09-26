@@ -16,7 +16,6 @@ export const DatosGeneralesSchema = new Schema({
   segundoApellido: string_type,
   curp: string_type,
   rfc: RFCSchema,
-  hasNull: Number,
   correoElectronico: CorreoElectronicoSchema,
   telefono: TelefonoSchema,
   situacionPersonalEstadoCivil: CatalogoSchema,
