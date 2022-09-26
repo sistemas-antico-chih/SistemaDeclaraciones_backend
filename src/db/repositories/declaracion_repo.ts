@@ -104,6 +104,7 @@ export class DeclaracionRepository {
         user.save();
       }
       else if( aux !== aux2){
+        console.log(user.segundoApellido);
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
         $set:{
           anioEjercicio: anio,
