@@ -105,7 +105,6 @@ export class DeclaracionRepository {
       }
       else if( aux !== aux2){
         var hasNull = 0;
-        console.log(user.segundoApellido);
         if(user.segundoApellido === null || user.segundoApellido ===""){
           hasNull = 1;  
         }
