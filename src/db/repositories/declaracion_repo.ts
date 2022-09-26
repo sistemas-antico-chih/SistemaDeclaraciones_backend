@@ -104,11 +104,11 @@ export class DeclaracionRepository {
         user.save();
       }
       else if( aux !== aux2){
-       // var hasNull = "0";
+        var hasNull = 0;
         console.log(user.segundoApellido);
-        //if(user.segundoApellido === null || user.segundoApellido ===""){
-          //hasNull = "1";  
-        //}
+        if(user.segundoApellido === null || user.segundoApellido ===""){
+          hasNull = 1;  
+        }
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
         $set:{
           anioEjercicio: anio,
@@ -121,7 +121,7 @@ export class DeclaracionRepository {
                 rfc: user.rfc.substring(0,10),
                 homoClave: user.rfc.substring(10,13)
              },
-             //hasNull: 0
+             hasNull: 0
             }
           }
         }, {new: true, upsert: true});
