@@ -44,6 +44,7 @@ type DatosGenerales {
   segundoApellido: LimitedString
   curp: LimitedString
   rfc: RFC
+  hasNull: Int
   correoElectronico: CorreoElectronico
   telefono: Telefono
   situacionPersonalEstadoCivil: Catalogo
