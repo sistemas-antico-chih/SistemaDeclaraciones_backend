@@ -121,7 +121,7 @@ export class DeclaracionRepository {
                 rfc: user.rfc.substring(0,10),
                 homoClave: user.rfc.substring(10,13)
              },
-             hasNull: 0
+             //hasNull: 0
             }
           }
         }, {new: true, upsert: true});
