@@ -1,6 +1,6 @@
 input UserProfileInput {
   nombre: LimitedString!
-  primerApellido: LimitedString!
+  primerApellido: LimitedString
   segundoApellido: LimitedString
   institucion: CatalogoInput
   curp: LimitedString!

@@ -20,7 +20,6 @@ export const UserSchema = new Schema({
   },
 	primerApellido: {
     type: String,
-    required: true,
     uppercase: true,
   },
 	segundoApellido: {

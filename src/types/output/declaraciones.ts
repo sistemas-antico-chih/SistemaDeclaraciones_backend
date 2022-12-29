@@ -36,7 +36,6 @@ interface DatosGenerales {
   segundoApellido?: string;
   curp?: string;
   rfc?: RFC;
-  hasNull?: number;
   correoElectronico?: CorreoElectronico;
   telefono?: Telefono;
   situacionPersonalEstadoCivil?: Catalogo;
