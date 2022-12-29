@@ -105,11 +105,21 @@ export class DeclaracionRepository {
       }
       else if( aux !== aux2){
         var hasNull = 0;
-        if(user.segundoApellido === null || user.segundoApellido ===""){
-          hasNull = 1;  
+        /*if(user.segundoApellido === null){
+          hasNull = 2;  
         }
+        if(user.segundoApellido ===""){
+          hasNull = 1;  
+        }*/
+        if(user.primerApellido === "X"){
+         user.primerApellido = ""; 
+        }
+        if(user.segundoApellido === "X"){
+          user.segundoApellido = ""; 
+         }
+
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
-        $set:{
+          $set:{
           anioEjercicio: anio,
           datosGenerales:{
              nombre: user.nombre,
