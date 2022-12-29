@@ -1,6 +1,6 @@
 input UserProfileInput {
   nombre: LimitedString!
-  primerApellido: LimitedString!
+  primerApellido: LimitedString
   segundoApellido: LimitedString
   institucion: CatalogoInput
   curp: LimitedString!
@@ -11,7 +11,7 @@ input UserSignUpInput {
   username: Email!
   password: LimitedString!
   nombre: LimitedString!
-  primerApellido: LimitedString!
+  primerApellido: LimitedString
   segundoApellido: LimitedString
   institucion: CatalogoInput
   curp: LimitedString!

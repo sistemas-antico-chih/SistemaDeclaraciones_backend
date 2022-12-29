@@ -4,7 +4,7 @@ export interface UserES {
   _id: string;
   username: string,
   nombre: string;
-  primerApellido: string;
+  primerApellido?: string;
   segundoApellido?: string;
   institucion?: {
     clave: string;

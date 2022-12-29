@@ -104,6 +104,13 @@ export class DeclaracionRepository {
         user.save();
       }
       else if( aux !== aux2){
+        if(user.primerApellido === "X"){
+          user.primerApellido = ""; 
+         }
+         if(user.segundoApellido === "X"){
+           user.segundoApellido = ""; 
+          }
+          
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
         $set:{
           anioEjercicio: anio,

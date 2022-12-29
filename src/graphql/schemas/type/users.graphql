@@ -2,7 +2,7 @@ type User {
   _id: ID!
   username: Email!
   nombre: LimitedString!
-  primerApellido: LimitedString!
+  primerApellido: LimitedString
   segundoApellido: LimitedString
   institucion: Catalogo
   curp: LimitedString!
