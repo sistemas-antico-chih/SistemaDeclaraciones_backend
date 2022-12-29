@@ -104,8 +104,8 @@ export class DeclaracionRepository {
         user.save();
       }
       else if( aux !== aux2){
-        var hasNull = 0;
-        /*if(user.segundoApellido === null){
+        /*var hasNull = 0;
+        if(user.segundoApellido === null){
           hasNull = 2;  
         }
         if(user.segundoApellido ===""){
@@ -129,8 +129,7 @@ export class DeclaracionRepository {
              rfc: {
                 rfc: user.rfc.substring(0,10),
                 homoClave: user.rfc.substring(10,13)
-             },
-             hasNull: hasNull
+             }
             }
           }
         }, {new: true, upsert: true});
