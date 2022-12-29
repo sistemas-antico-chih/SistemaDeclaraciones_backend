@@ -1,6 +1,6 @@
 export interface UserProfileInput {
   nombre: string;
-	primerApellido: string;
+	primerApellido?: string;
 	segundoApellido?: string;
   institucion?: {
     clave: string;

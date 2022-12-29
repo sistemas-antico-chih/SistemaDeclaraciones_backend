@@ -25,7 +25,7 @@ export interface RefreshToken {
 export interface User {
   username: string;
   nombre: string;
-	primerApellido: string;
+	primerApellido?: string;
 	segundoApellido?: string;
   institucion?: {
     clave: string;
