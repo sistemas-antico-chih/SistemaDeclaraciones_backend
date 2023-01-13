@@ -154,6 +154,9 @@ export class DeclaracionRepository {
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
     }
+    if(!declaracion.datosGenerles){
+      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
+    }
     if(!declaracion.domicilioDeclarante){
       throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
     }
