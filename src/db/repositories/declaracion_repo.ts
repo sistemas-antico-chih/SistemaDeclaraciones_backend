@@ -104,13 +104,6 @@ export class DeclaracionRepository {
         user.save();
       }
       else if( aux !== aux2){
-        /*var hasNull = 0;
-        if(user.segundoApellido === null){
-          hasNull = 2;  
-        }
-        if(user.segundoApellido ===""){
-          hasNull = 1;  
-        }*/
         if(user.primerApellido === "X"){
          user.primerApellido = ""; 
         }
@@ -154,12 +147,15 @@ export class DeclaracionRepository {
     if (!BCrypt.compare(password, user.password)) {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
-    
+
     if(declaracion.datosGenerales){
       if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico 
         || !declaracion.datosGenerales.telefono){
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
+    }
+    if(!declaracion.datosGenerles){
+      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
     }
     if(!declaracion.domicilioDeclarante){
       throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
