@@ -12,4 +12,10 @@ export const CatalogoSchema = new Schema({
     trim: true,
     required: true,
   },
+  titularDec:{
+    type: Number,
+    trim: true,
+    required: false
+  }
 });
+
