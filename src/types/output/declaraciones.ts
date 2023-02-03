@@ -3,6 +3,7 @@ import * as enums from '../enums';
 interface Catalogo {
   clave: string;
   valor: string;
+  titularDec: string;
 }
 
 interface Monto {
