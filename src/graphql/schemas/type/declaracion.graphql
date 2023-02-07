@@ -6,7 +6,6 @@ type RFC {
 type Catalogo {
   clave: LimitedString!
   valor: LimitedString!
-  titularDec: Int
 }
 
 type DomicilioMexico {

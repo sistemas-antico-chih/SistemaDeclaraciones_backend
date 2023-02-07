@@ -6,7 +6,6 @@ input RFCInput {
 input CatalogoInput {
   clave: LimitedString!
   valor: LimitedString!
-  titularDec: Int
 }
 
 input DomicilioMexicoInput {

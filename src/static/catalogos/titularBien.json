@@ -1,32 +1,26 @@
 [
   {
     "clave": "DEC",
-    "valor": "DECLARANTE",
-    "titularDec": 1
+    "valor": "DECLARANTE"
   },
   {
     "clave": "CYG",
-    "valor": "CÓNYUGE",
-    "titularDec": 0
+    "valor": "CÓNYUGE"
   },
   {
     "clave": "CBN",
-    "valor": "CONCUBINA O CONCUBINARIO",
-    "titularDec": 0
+    "valor": "CONCUBINA O CONCUBINARIO"
   },
   {
     "clave": "CVV",
-    "valor": "CONVIVIENTE",
-    "titularDec": 0
+    "valor": "CONVIVIENTE"
   },
   {
     "clave": "DEN",
-    "valor": "DEPENDIENTE ECONÓMICO",
-    "titularDec": 0
+    "valor": "DEPENDIENTE ECONÓMICO"
   },
   {
     "clave": "CTER",
-    "valor": "COPROPIEDAD CON TERCEROS",
-    "titularDec": 0
+    "valor": "COPROPIEDAD CON TERCEROS"
   }
 ]
