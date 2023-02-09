@@ -128,7 +128,7 @@ export class DeclaracionRepository {
         }, {new: true, upsert: true});
         user.declaraciones.push(declaracion);
         user.save();
-     }
+      }
      return declaracion;
   }
 
