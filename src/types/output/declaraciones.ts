@@ -340,7 +340,7 @@ interface BienesInmuebles {
   ninguno?: boolean;
   bienInmueble?: BienInmueble[];
   aclaracionesObservaciones?: string;
-  bienesDeclarante?: number;
+ //bienesDeclarante?: number;
 }
 
 interface Vehiculo {
