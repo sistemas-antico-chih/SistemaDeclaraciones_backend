@@ -8,4 +8,5 @@ export const BienesInmueblesSchema = new Schema({
     type: String,
     trim: true,
   },
+  bienesDeclarante: Number,
 });

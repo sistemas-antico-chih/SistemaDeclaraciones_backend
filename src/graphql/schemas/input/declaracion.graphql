@@ -335,6 +335,8 @@ input BienesInmueblesInput {
   ninguno: Boolean
   bienInmueble: [BienInmuebleInput]
   aclaracionesObservaciones: LimitedString
+  bienesDeclarante: Int
+
 }
 
 input VehiculoInput {

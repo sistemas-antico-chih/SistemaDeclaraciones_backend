@@ -335,6 +335,8 @@ type BienesInmuebles {
   ninguno: Boolean
   bienInmueble: [BienInmueble]
   aclaracionesObservaciones: LimitedString
+  bienesDeclarante: Int
+
 }
 
 type Vehiculo {
