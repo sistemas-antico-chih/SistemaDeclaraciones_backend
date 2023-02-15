@@ -18,7 +18,6 @@ export default class ReportsClient {
         declaracion: declaracion,
         preliminar: !declaracion.firmada,
         publico: query_params.publico,
-        municipio: declaracion.datosEmpleoCargoComision?.nombreEntePublico,
       },
     });
 
