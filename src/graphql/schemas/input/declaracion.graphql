@@ -336,6 +336,9 @@ input BienesInmueblesInput {
   bienInmueble: [BienInmuebleInput]
   aclaracionesObservaciones: LimitedString
   bienesDeclarante: Int
+  superficieConstruccion: [Int]
+  superficieTerreno: [Int]
+  valorAdquisicion: [Int]
 }
 
 input VehiculoInput {

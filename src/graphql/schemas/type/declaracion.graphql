@@ -336,6 +336,9 @@ type BienesInmuebles {
   bienInmueble: [BienInmueble]
   aclaracionesObservaciones: LimitedString
   bienesDeclarante: Int
+  superficieConstruccion: [Int]
+  superficieTerreno: [Int]
+  valorAdquisicion: [Int]
 }
 
 type Vehiculo {

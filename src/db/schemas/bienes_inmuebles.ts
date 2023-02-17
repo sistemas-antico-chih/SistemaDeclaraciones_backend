@@ -9,4 +9,7 @@ export const BienesInmueblesSchema = new Schema({
     trim: true,
   },
   bienesDeclarante: Number,
+  superficieConstruccion: [Number],
+  superficieTerreno: [Number],
+  valorAdquisicion: [Number],
 });
