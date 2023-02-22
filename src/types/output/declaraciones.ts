@@ -345,7 +345,6 @@ interface BienesInmuebles {
   ninguno?: boolean;
   bienInmueble?: BienInmueble[];
   aclaracionesObservaciones?: string;
-  bienesDeclarante?: number;
   superficieConstruccion?: ValorDeclarante[];
   superficieTerreno?: ValorDeclarante[];
   valorAdquisicion?: ValorDeclarante[];

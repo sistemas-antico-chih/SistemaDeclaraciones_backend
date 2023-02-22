@@ -340,7 +340,6 @@ input BienesInmueblesInput {
   ninguno: Boolean
   bienInmueble: [BienInmuebleInput]
   aclaracionesObservaciones: LimitedString
-  bienesDeclarante: Int
   superficieConstruccion: [ValorDeclaranteInput]
   superficieTerreno: [ValorDeclaranteInput]
   valorAdquisicion: [ValorDeclaranteInput]

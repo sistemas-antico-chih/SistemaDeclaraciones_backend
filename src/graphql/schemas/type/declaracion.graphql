@@ -340,7 +340,6 @@ type BienesInmuebles {
   ninguno: Boolean
   bienInmueble: [BienInmueble]
   aclaracionesObservaciones: LimitedString
-  bienesDeclarante: Int
   superficieConstruccion: [ValorDeclarante]
   superficieTerreno: [ValorDeclarante]
   valorAdquisicion: [ValorDeclarante]
