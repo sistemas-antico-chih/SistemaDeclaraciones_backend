@@ -5,7 +5,7 @@ interface Catalogo {
   valor: string;
 }
 
-interface valorDeclarante {
+interface ValorDeclarante {
   indice: number;
   valor: number;
 }
@@ -346,9 +346,9 @@ interface BienesInmuebles {
   bienInmueble?: BienInmueble[];
   aclaracionesObservaciones?: string;
   bienesDeclarante?: number;
-  superficieConstruccion?: valorDeclarante[];
-  superficieTerreno?: valorDeclarante[];
-  valorAdquisicion?: valorDeclarante[];
+  superficieConstruccion?: ValorDeclarante[];
+  superficieTerreno?: ValorDeclarante[];
+  valorAdquisicion?: ValorDeclarante[];
 }
 
 interface Vehiculo {

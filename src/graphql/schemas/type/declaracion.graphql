@@ -3,7 +3,7 @@ type RFC {
   homoClave: LimitedString
 }
 
-type valorDeclarante {
+type ValorDeclarante {
   indice: Int
   valor: Int
 }
@@ -341,9 +341,9 @@ type BienesInmuebles {
   bienInmueble: [BienInmueble]
   aclaracionesObservaciones: LimitedString
   bienesDeclarante: Int
-  superficieConstruccion: [valorDeclarante]
-  superficieTerreno: [valorDeclarante]
-  valorAdquisicion: [valorDeclarante]
+  superficieConstruccion: [ValorDeclarante]
+  superficieTerreno: [ValorDeclarante]
+  valorAdquisicion: [ValorDeclarante]
 }
 
 type Vehiculo {
