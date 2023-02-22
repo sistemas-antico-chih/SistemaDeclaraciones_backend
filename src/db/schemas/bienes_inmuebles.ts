@@ -1,4 +1,4 @@
-import { BienInmuebleSchema } from './bien_inmueble';
+import { BienInmuebleSchema} from './bien_inmueble';
 import { Schema } from 'mongoose';
 
 export const BienesInmueblesSchema = new Schema({
@@ -9,7 +9,7 @@ export const BienesInmueblesSchema = new Schema({
     trim: true,
   },
   bienesDeclarante: Number,
-  superficieConstruccion: [Number],
-  superficieTerreno: [Number],
-  valorAdquisicion: [Number],
+  superficieConstruccion: [{indice: Number, valor: Number}],
+  superficieTerreno: [{indice: Number, valor: Number}],
+  valorAdquisicion: [{indice: Number, valor: Number}],
 });

@@ -3,6 +3,21 @@ input RFCInput {
   homoClave: LimitedString
 }
 
+input valorConstruccionInput {
+  indice: Int
+  valor: Int
+}
+
+input valorTerrenoInput {
+  indice: Int
+  valor: Int
+}
+
+input valorAdquisicionInput {
+  indice: Int
+  valor: Int
+}
+
 input CatalogoInput {
   clave: LimitedString!
   valor: LimitedString!
@@ -336,9 +351,9 @@ input BienesInmueblesInput {
   bienInmueble: [BienInmuebleInput]
   aclaracionesObservaciones: LimitedString
   bienesDeclarante: Int
-  superficieConstruccion: [Int]
-  superficieTerreno: [Int]
-  valorAdquisicion: [Int]
+  superficieConstruccion: [valorConstruccionInput]
+  superficieTerreno: [valorTerrenoInput]
+  valorAdquisicion: [valorAdquisicionInput]
 }
 
 input VehiculoInput {
