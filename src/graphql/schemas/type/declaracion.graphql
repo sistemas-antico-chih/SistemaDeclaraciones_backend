@@ -3,17 +3,17 @@ type RFC {
   homoClave: LimitedString
 }
 
-input valorConstruccion {
+type valorConstruccion {
   indice: Int
   valor: Int
 }
 
-input valorTerreno {
+type valorTerreno {
   indice: Int
   valor: Int
 }
 
-input valorAdquisicion {
+type valorAdquisicion {
   indice: Int
   valor: Int
 }
