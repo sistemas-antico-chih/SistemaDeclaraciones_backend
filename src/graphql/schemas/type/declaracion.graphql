@@ -5,7 +5,9 @@ type RFC {
 
 type ValorDeclarante {
   indice: Int
-  valor: Int
+  superficieConstruccion: Int
+  superficieTerreno: Int
+  valorAdquisicion: Int
 }
 
 type Catalogo {
@@ -340,9 +342,7 @@ type BienesInmuebles {
   ninguno: Boolean
   bienInmueble: [BienInmueble]
   aclaracionesObservaciones: LimitedString
-  superficieConstruccion: [ValorDeclarante]
-  superficieTerreno: [ValorDeclarante]
-  valorAdquisicion: [ValorDeclarante]
+  valores: [ValorDeclarante]
 }
 
 type Vehiculo {

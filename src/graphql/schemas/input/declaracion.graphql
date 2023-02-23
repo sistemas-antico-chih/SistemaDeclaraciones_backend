@@ -5,7 +5,9 @@ input RFCInput {
 
 input ValorDeclaranteInput {
   indice: Int
-  valor: Int
+  superficieConstruccion: Int
+  superficieTerreno: Int
+  valorAdquisicion: Int
 }
 
 input CatalogoInput {
@@ -340,9 +342,7 @@ input BienesInmueblesInput {
   ninguno: Boolean
   bienInmueble: [BienInmuebleInput]
   aclaracionesObservaciones: LimitedString
-  superficieConstruccion: [ValorDeclaranteInput]
-  superficieTerreno: [ValorDeclaranteInput]
-  valorAdquisicion: [ValorDeclaranteInput]
+  valores: [ValorDeclaranteInput]
 }
 
 input VehiculoInput {
