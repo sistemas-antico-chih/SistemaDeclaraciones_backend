@@ -11,3 +11,4 @@ export const BienesInmueblesSchema = new Schema({
   },
   valores: [ValorDeclaranteSchema],
 });
+
