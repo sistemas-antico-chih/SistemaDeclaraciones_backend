@@ -1,5 +1,6 @@
-import { BienInmuebleSchema } from './bien_inmueble';
+import { BienInmuebleSchema} from './bien_inmueble';
 import { Schema } from 'mongoose';
+import { ValorDeclaranteSchema } from './valor_declarante';
 
 export const BienesInmueblesSchema = new Schema({
   ninguno: Boolean,
@@ -8,5 +9,5 @@ export const BienesInmueblesSchema = new Schema({
     type: String,
     trim: true,
   },
-  bienesDeclarante: Number,
+  valores: [ValorDeclaranteSchema],
 });
