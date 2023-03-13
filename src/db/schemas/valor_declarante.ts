@@ -5,4 +5,5 @@ export const ValorDeclaranteSchema = new Schema({
   superficieConstruccion: Number,
   superficieTerreno: Number,
   valorAdquisicion: Number,
+  formaAdquisicion: String,
 });
