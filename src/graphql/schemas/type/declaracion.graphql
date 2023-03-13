@@ -8,6 +8,7 @@ type ValorDeclarante {
   superficieConstruccion: Int
   superficieTerreno: Int
   valorAdquisicion: Int
+  formaAdquisicion: LimitedString
 }
 
 type Catalogo {

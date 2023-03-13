@@ -10,6 +10,7 @@ interface ValorDeclarante {
   superficieConstruccion: number;
   superficieTerreno: number;
   valorAdquisicion: number;
+  formaAdquisicion: string;
 }
 
 interface Monto {
