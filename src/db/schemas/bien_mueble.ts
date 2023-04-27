@@ -5,9 +5,13 @@ import { Schema } from 'mongoose';
 import { TerceroSchema } from './tercero';
 import { TransmisorSchema } from './transmisor';
 import { addNullValue } from '../../library/utils';
-
+import { TipoOperacion} from '../../types/enums';
 
 export const BienMuebleSchema = new Schema({
+  tipoOperacion: {
+    type: String,
+    enum: addNullValue(TipoOperacion),
+  },
   titular: [CatalogoSchema],
   tipoBien: CatalogoSchema,
   transmisor: [TransmisorSchema],

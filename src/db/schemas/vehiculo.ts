@@ -6,7 +6,7 @@ import { TerceroSchema } from './tercero';
 import { TransmisorSchema } from './transmisor';
 import { UbicacionSchema } from './ubicacion';
 import { addNullValue } from '../../library/utils';
-
+import { TipoOperacion} from '../../types/enums';
 
 const string_type = {
   type: String,
@@ -15,6 +15,10 @@ const string_type = {
 };
 
 export const VehiculoSchema = new Schema({
+  tipoOperacion: {
+    type: String,
+    enum: addNullValue(TipoOperacion),
+  },
   tipoVehiculo: CatalogoSchema,
   titular: [CatalogoSchema],
   transmisor: [TransmisorSchema],

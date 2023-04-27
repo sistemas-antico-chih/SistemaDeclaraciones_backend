@@ -184,6 +184,7 @@ interface ActividadLaboralSectorPrivadoOtro {
 }
 
 interface DatosPareja {
+  tipoOperacion?: enums.TipoOperacion;
   ninguno?: boolean;
   nombre?: string;
   primerApellido?: string;
@@ -204,6 +205,7 @@ interface DatosPareja {
 }
 
 interface DependienteEconomico {
+  tipoOperacion?: enums.TipoOperacion;
   nombre: string;
   primerApellido: string;
   segundoApellido?: string;
@@ -326,6 +328,7 @@ interface Transmisor {
 }
 
 interface BienInmueble {
+  tipoOperacion?: enums.TipoOperacion;
   tipoInmueble?: Catalogo;
   titular?: Catalogo[];
   porcentajePropiedad?: number;
@@ -352,6 +355,7 @@ interface BienesInmuebles {
 }
 
 interface Vehiculo {
+  tipoOperacion?: enums.TipoOperacion;
   tipoVehiculo?: Catalogo;
   titular?: Catalogo[];
   transmisor?: Transmisor[];
@@ -375,6 +379,7 @@ interface Vehiculos {
 }
 
 interface BienMueble {
+  tipoOperacion?: enums.TipoOperacion;
   titular?: Catalogo[];
   tipoBien?: Catalogo;
   transmisor?: Transmisor[];
@@ -400,6 +405,7 @@ interface LocalizacionInversion {
 }
 
 interface Inversion {
+  tipoOperacion?: enums.TipoOperacion;
   tipoInversion?: Catalogo;
   subTipoInversion?: Catalogo;
   titular?: Catalogo[];
@@ -427,6 +433,7 @@ interface LocalizacionAdeudo {
 }
 
 interface Adeudo {
+  tipoOperacion?: enums.TipoOperacion;
   titular?: Catalogo[];
   tipoAdeudo?: Catalogo;
   numeroCuentaContrato?: string;
@@ -460,6 +467,7 @@ interface VehiculoPrestamo {
 }
 
 interface TipoBienPrestamo {
+  tipoOperacion?: enums.TipoOperacion;
   inmueble?: InmueblePrestamo;
   vehiculo?: VehiculoPrestamo;
 }
