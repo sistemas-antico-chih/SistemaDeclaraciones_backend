@@ -95,11 +95,9 @@ export class DeclaracionRepository {
       owner: user,
     };
 
-    console.log(tipoDeclaracion);
-    var cont=await DeclaracionModel.countDocuments({'owner':user._id, 'tipoDeclaracion':'INICIAL'});
-    console.log(cont);
-
-
+    //console.log(tipoDeclaracion);
+    var cont=await DeclaracionModel.countDocuments({'owner':user._id, 'tipoDeclaracion':'INICIAL', 'firmada':true});
+    if (cont === 0){
       var anio=new Date().getFullYear();
       var aux= await DeclaracionModel.countDocuments({'owner':user._id});
       var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {},{new: true, upsert: true});
@@ -135,6 +133,10 @@ export class DeclaracionRepository {
         user.save();
       }
      return declaracion;
+    }
+    else
+    alert('Debe tener una declaación de tipo INICIAL');
+    console.log(cont);
   }
 
   public static async sign(declaracionID: string, password: string, userID: string): Promise<Record<string, any> | null> {
