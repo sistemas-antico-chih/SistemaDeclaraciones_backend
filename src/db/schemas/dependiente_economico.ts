@@ -6,6 +6,7 @@ import { DomicilioMexicoSchema } from './domicilio_mexico';
 import { LugarResidencia } from '../../types/enums';
 import { Schema } from 'mongoose';
 import { addNullValue } from '../../library/utils';
+import { TipoOperacion} from '../../types/enums';
 
 
 const string_type = {
@@ -15,6 +16,10 @@ const string_type = {
 };
 
 export const DependienteEconomicoSchema = new Schema({
+  tipoOperacion: {
+    type: String,
+    enum: addNullValue(TipoOperacion),
+  },
   nombre: {
     type: String,
     trim: true,
