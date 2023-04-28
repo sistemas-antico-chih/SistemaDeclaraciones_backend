@@ -44,7 +44,7 @@ export class DeclaracionRepository {
     const limit: number = pagination.size || 20;
     const declaraciones = await DeclaracionModel.paginate({
       query: { ...filter },
-      sort: { createdAt: 'desc'},
+      sort: { createdAt: 'desc' },
       populate: 'owner',
       page: page + 1,
       limit: Math.min(limit, 100),
@@ -67,7 +67,7 @@ export class DeclaracionRepository {
     const limit: number = pagination.size || 20;
     const declaraciones = await DeclaracionModel.paginate({
       query: { owner: user, ...filter },
-      sort: { createdAt: 'desc'},
+      sort: { createdAt: 'desc' },
       populate: 'owner',
       page: page + 1,
       limit: Math.min(limit, 100),
@@ -88,55 +88,58 @@ export class DeclaracionRepository {
     if (!user) {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
     }
+
     const filter = {
       tipoDeclaracion: tipoDeclaracion,
       declaracionCompleta: declaracionCompleta,
       firmada: false,
       owner: user,
     };
-
+    
     //console.log(tipoDeclaracion);
-    var cont=await DeclaracionModel.countDocuments({'owner':user._id, 'tipoDeclaracion':'INICIAL', 'firmada':true});
-    if (cont === 0){
-      var anio=new Date().getFullYear();
-      var aux= await DeclaracionModel.countDocuments({'owner':user._id});
-      var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {},{new: true, upsert: true});
-      var aux2= await DeclaracionModel.countDocuments({'owner':user._id});
-      if (aux === aux2){
+    var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
+    if (cont === 0) {
+      var anio = new Date().getFullYear();
+      var aux = await DeclaracionModel.countDocuments({ 'owner': user._id });
+      var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
+      var aux2 = await DeclaracionModel.countDocuments({ 'owner': user._id });
+      if (aux === aux2) {
         user.declaraciones.push(declaracion);
         user.save();
       }
-      else if( aux !== aux2){
-        if(user.primerApellido === "X"){
-          user.primerApellido = ""; 
-         }
-         if(user.segundoApellido === "X"){
-           user.segundoApellido = ""; 
-          }
-          
+      else if (aux !== aux2) {
+        if (user.primerApellido === "X") {
+          user.primerApellido = "";
+        }
+        if (user.segundoApellido === "X") {
+          user.segundoApellido = "";
+        }
+  
         declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
-        $set:{
-          anioEjercicio: anio,
-          datosGenerales:{
-             nombre: user.nombre,
-             primerApellido: user.primerApellido,
-             segundoApellido: user.segundoApellido,
-             curp: user.curp,
-             rfc: {
-                rfc: user.rfc.substring(0,10),
-                homoClave: user.rfc.substring(10,13)
-             }
+          $set: {
+            anioEjercicio: anio,
+            datosGenerales: {
+              nombre: user.nombre,
+              primerApellido: user.primerApellido,
+              segundoApellido: user.segundoApellido,
+              curp: user.curp,
+              rfc: {
+                rfc: user.rfc.substring(0, 10),
+                homoClave: user.rfc.substring(10, 13)
+              }
             }
           }
-        }, {new: true, upsert: true});
+        }, { new: true, upsert: true });
         user.declaraciones.push(declaracion);
         user.save();
       }
-     return declaracion;
+      return declaracion;
     }
-    else
-    alert('Debe tener una declaación de tipo INICIAL');
-    console.log(cont);
+    else{
+      alert('Debe tener una declaación de tipo INICIAL');
+      console.log(cont);
+      throw new CreateError.NotFound(`No cuenta con alguna declaración de tipo INICIAL.`);
+    }
   }
 
   public static async sign(declaracionID: string, password: string, userID: string): Promise<Record<string, any> | null> {
@@ -155,32 +158,32 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    if(declaracion.datosGenerales){
-      if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
-        || !declaracion.datosGenerales.telefono){
+    if (declaracion.datosGenerales) {
+      if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
+        || !declaracion.datosGenerales.telefono) {
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
     }
-    if(!declaracion.datosGenerales){
+    if (!declaracion.datosGenerales) {
       throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
     }
-    if(!declaracion.domicilioDeclarante){
+    if (!declaracion.domicilioDeclarante) {
       throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
     }
-    if(!declaracion.datosCurricularesDeclarante){
-        throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
+    if (!declaracion.datosCurricularesDeclarante) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
     }
-    if(!declaracion.datosEmpleoCargoComision){
+    if (!declaracion.datosEmpleoCargoComision) {
       throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
     }
-    if(!declaracion.experienciaLaboral){
+    if (!declaracion.experienciaLaboral) {
       throw new CreateError.Forbidden('FALTA CAPTURAR EXPERIENCIA LABORAL');
     }
-    if(!declaracion.ingresos){
+    if (!declaracion.ingresos) {
       throw new CreateError.Forbidden('FALTA CAPTURAR INGRESOS');
     }
-    if(declaracion.tipoDeclaracion !== 'MODIFICACION'){
-      if(!declaracion.actividadAnualAnterior){
+    if (declaracion.tipoDeclaracion !== 'MODIFICACION') {
+      if (!declaracion.actividadAnualAnterior) {
         throw new CreateError.Forbidden('FALTA CAPTURAR ACTIVIDAD ANUAL ANTERIOR');
       }
     }
@@ -190,7 +193,7 @@ export class DeclaracionRepository {
     try {
       const responsePreview = await ReportsClient.getReport(declaracion);
       await SendgridClient.sendDeclarationFile(user.username, responsePreview.toString('base64'));
-    } catch(e) {
+    } catch (e) {
       throw new CreateError.InternalServerError('There was a problem sending the Report');
     }
 
@@ -218,12 +221,12 @@ export class DeclaracionRepository {
       context: 'query',
     };
 
-    const updatedDeclaracion = await DeclaracionModel.findOneAndUpdate(filter, {$set: props}, options);
+    const updatedDeclaracion = await DeclaracionModel.findOneAndUpdate(filter, { $set: props }, options);
     if (!updatedDeclaracion) {
       throw CreateError(
-          StatusCodes.INTERNAL_SERVER_ERROR,
-          'Something went wrong at Declaracion.update',
-          { debug_info: { declaracionID, userID, props }},
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'Something went wrong at Declaracion.update',
+        { debug_info: { declaracionID, userID, props } },
       );
     }
 
