@@ -95,51 +95,45 @@ export class DeclaracionRepository {
       firmada: false,
       owner: user,
     };
-    
+
     //console.log(tipoDeclaracion);
-    var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
-    if (cont === 0) {
-      var anio = new Date().getFullYear();
-      var aux = await DeclaracionModel.countDocuments({ 'owner': user._id });
-      var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
-      var aux2 = await DeclaracionModel.countDocuments({ 'owner': user._id });
-      if (aux === aux2) {
-        user.declaraciones.push(declaracion);
-        user.save();
+    //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
+    var anio = new Date().getFullYear();
+    var aux = await DeclaracionModel.countDocuments({ 'owner': user._id });
+    var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
+    var aux2 = await DeclaracionModel.countDocuments({ 'owner': user._id });
+    if (aux === aux2) {
+      user.declaraciones.push(declaracion);
+      user.save();
+    }
+    else if (aux !== aux2) {
+      if (user.primerApellido === "X") {
+        user.primerApellido = "";
       }
-      else if (aux !== aux2) {
-        if (user.primerApellido === "X") {
-          user.primerApellido = "";
-        }
-        if (user.segundoApellido === "X") {
-          user.segundoApellido = "";
-        }
-  
-        declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
-          $set: {
-            anioEjercicio: anio,
-            datosGenerales: {
-              nombre: user.nombre,
-              primerApellido: user.primerApellido,
-              segundoApellido: user.segundoApellido,
-              curp: user.curp,
-              rfc: {
-                rfc: user.rfc.substring(0, 10),
-                homoClave: user.rfc.substring(10, 13)
-              }
+      if (user.segundoApellido === "X") {
+        user.segundoApellido = "";
+      }
+
+      declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
+        $set: {
+          anioEjercicio: anio,
+          datosGenerales: {
+            nombre: user.nombre,
+            primerApellido: user.primerApellido,
+            segundoApellido: user.segundoApellido,
+            curp: user.curp,
+            rfc: {
+              rfc: user.rfc.substring(0, 10),
+              homoClave: user.rfc.substring(10, 13)
             }
           }
-        }, { new: true, upsert: true });
-        user.declaraciones.push(declaracion);
-        user.save();
-      }
-      return declaracion;
+        }
+      }, { new: true, upsert: true });
+      user.declaraciones.push(declaracion);
+      user.save();
     }
-    else{
-      alert('Debe tener una declaación de tipo INICIAL');
-      console.log(cont);
-      throw new CreateError.NotFound(`No cuenta con alguna declaración de tipo INICIAL.`);
-    }
+    return declaracion;
+
   }
 
   public static async sign(declaracionID: string, password: string, userID: string): Promise<Record<string, any> | null> {
