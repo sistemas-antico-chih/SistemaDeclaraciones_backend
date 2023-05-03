@@ -8,9 +8,13 @@ import { SuperficieSchema } from './superficie';
 import { TerceroSchema } from './tercero';
 import { TransmisorSchema } from './transmisor';
 import { addNullValue } from '../../library/utils';
-
+import { TipoOperacion} from '../../types/enums';
 
 export const BienInmuebleSchema = new Schema({
+  tipoOperacion: {
+    type: String,
+    enum: addNullValue(TipoOperacion),
+  },
   tipoInmueble: CatalogoSchema,
   titular: [CatalogoSchema],
   porcentajePropiedad: Number,

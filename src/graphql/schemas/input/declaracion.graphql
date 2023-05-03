@@ -172,6 +172,7 @@ input ActividadLaboralSectorPrivadoOtroInput {
 }
 
 input DatosParejaInput {
+  tipoOperacion: TipoOperacion
   ninguno: Boolean
   nombre: LimitedString
   primerApellido: LimitedString
@@ -193,6 +194,7 @@ input DatosParejaInput {
 }
 
 input DependienteEconomicoInput {
+  tipoOperacion: TipoOperacion
   nombre: LimitedString!
   primerApellido: LimitedString!
   segundoApellido: LimitedString
@@ -321,6 +323,7 @@ input TransmisorInput {
 }
 
 input BienInmuebleInput {
+  tipoOperacion: TipoOperacion
   tipoInmueble: CatalogoInput
   titular: [CatalogoInput]
   porcentajePropiedad: Int
@@ -347,6 +350,7 @@ input BienesInmueblesInput {
 }
 
 input VehiculoInput {
+  tipoOperacion: TipoOperacion
   tipoVehiculo: CatalogoInput
   titular: [CatalogoInput]
   transmisor: [TransmisorInput]
@@ -370,6 +374,7 @@ input VehiculosInput {
 }
 
 input BienMuebleInput {
+  tipoOperacion: TipoOperacion
   titular: [CatalogoInput]
   tipoBien: CatalogoInput
   transmisor: [TransmisorInput]
@@ -395,6 +400,7 @@ input LocalizacionInversionInput {
 }
 
 input InversionInput {
+  tipoOperacion: TipoOperacion
   tipoInversion: CatalogoInput
   subTipoInversion: CatalogoInput
   titular: [CatalogoInput]
@@ -422,6 +428,7 @@ input LocalizacionAdeudoInput {
 }
 
 input AdeudoInput {
+  tipoOperacion: TipoOperacion
   titular: [CatalogoInput]
   tipoAdeudo: CatalogoInput
   numeroCuentaContrato: LimitedString
@@ -455,6 +462,7 @@ input VehiculoPrestamoInput {
 }
 
 input TipoBienPrestamoInput {
+  tipoOperacion: TipoOperacion
   inmueble: InmueblePrestamoInput
   vehiculo: VehiculoPrestamoInput
 }

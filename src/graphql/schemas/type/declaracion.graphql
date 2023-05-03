@@ -172,6 +172,7 @@ type ActividadLaboralSectorPrivadoOtro {
 }
 
 type DatosPareja {
+  tipoOperacion: TipoOperacion
   ninguno: Boolean
   nombre: LimitedString
   primerApellido: LimitedString
@@ -193,6 +194,7 @@ type DatosPareja {
 }
 
 type DependienteEconomico {
+  tipoOperacion: TipoOperacion
   nombre: LimitedString!
   primerApellido: LimitedString!
   segundoApellido: LimitedString
@@ -321,6 +323,7 @@ type Transmisor  {
 }
 
 type BienInmueble {
+  tipoOperacion: TipoOperacion
   tipoInmueble: Catalogo
   titular: [Catalogo]
   porcentajePropiedad: Int
@@ -347,6 +350,7 @@ type BienesInmuebles {
 }
 
 type Vehiculo {
+  tipoOperacion: TipoOperacion
   tipoVehiculo: Catalogo
   titular: [Catalogo]
   transmisor: [Transmisor]
@@ -370,6 +374,7 @@ type Vehiculos {
 }
 
 type BienMueble {
+  tipoOperacion: TipoOperacion
   titular: [Catalogo]
   tipoBien: Catalogo
   transmisor: [Transmisor]
@@ -395,6 +400,7 @@ type LocalizacionInversion {
 }
 
 type Inversion {
+  tipoOperacion: TipoOperacion
   tipoInversion: Catalogo
   subTipoInversion: Catalogo
   titular: [Catalogo]
@@ -422,6 +428,7 @@ type LocalizacionAdeudo {
 }
 
 type Adeudo {
+  tipoOperacion: TipoOperacion
   titular: [Catalogo]
   tipoAdeudo: Catalogo
   numeroCuentaContrato: LimitedString
@@ -455,6 +462,7 @@ type VehiculoPrestamo {
 }
 
 type TipoBienPrestamo {
+  tipoOperacion: TipoOperacion
   inmueble: InmueblePrestamo
   vehiculo: VehiculoPrestamo
 }
