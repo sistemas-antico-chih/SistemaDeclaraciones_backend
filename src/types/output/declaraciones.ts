@@ -467,7 +467,6 @@ interface VehiculoPrestamo {
 }
 
 interface TipoBienPrestamo {
-  tipoOperacion?: enums.TipoOperacion;
   inmueble?: InmueblePrestamo;
   vehiculo?: VehiculoPrestamo;
 }
@@ -480,6 +479,7 @@ interface DuenoTitularPrestamo {
 }
 
 interface Prestamo {
+  tipoOperacion?: enums.TipoOperacion;
   tipoBien?: TipoBienPrestamo;
   duenoTitular?: DuenoTitularPrestamo;
 }
