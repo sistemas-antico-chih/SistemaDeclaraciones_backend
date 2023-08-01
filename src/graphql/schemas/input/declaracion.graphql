@@ -462,7 +462,6 @@ input VehiculoPrestamoInput {
 }
 
 input TipoBienPrestamoInput {
-  tipoOperacion: TipoOperacion
   inmueble: InmueblePrestamoInput
   vehiculo: VehiculoPrestamoInput
 }
@@ -475,6 +474,7 @@ input DuenoTitularPrestamoInput {
 }
 
 input PrestamoInput {
+  tipoOperacion: TipoOperacion
   tipoBien: TipoBienPrestamoInput
   duenoTitular: DuenoTitularPrestamoInput
 }

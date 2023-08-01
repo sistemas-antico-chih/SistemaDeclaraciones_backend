@@ -462,7 +462,6 @@ type VehiculoPrestamo {
 }
 
 type TipoBienPrestamo {
-  tipoOperacion: TipoOperacion
   inmueble: InmueblePrestamo
   vehiculo: VehiculoPrestamo
 }
@@ -475,6 +474,7 @@ type DuenoTitularPrestamo  {
 }
 
 type Prestamo {
+  tipoOperacion: TipoOperacion
   tipoBien: TipoBienPrestamo
   duenoTitular: DuenoTitularPrestamo
 }
