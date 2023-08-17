@@ -10,7 +10,7 @@ export class StatsRepository {
     }
 
     const results = await DeclaracionModel.aggregate([
-      { $match: { ...filters, 'firmada':true }},
+      { $match: { ...filters }},
       //{ $match: { 'owner':userID, 'firmada':true }},
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
