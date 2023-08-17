@@ -182,7 +182,7 @@ export class DeclaracionRepository {
       }
     }
     declaracion.firmada = true;
-    declaracion.adecuada = true; //verificar
+    //declaracion.adecuada = true; //verificar
     declaracion.save();
 
     try {
