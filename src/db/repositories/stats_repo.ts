@@ -55,6 +55,7 @@ export class StatsRepository {
     results.forEach(tipo => {
       console.log('tipo: '+tipo);
     });
+    console.log(results.count);
     console.log('total: '+total);
 
     return { tipoDeclaracion, total};
