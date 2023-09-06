@@ -18,7 +18,7 @@ type Query {
   stats: Stats! @isAuthenticated
 
   "Retrieve all the stats by declaration type group by anioEjercicio"
-  statsTipo(TipoDeclaracion: TipoDeclaracion!, anioEjercicio: Int!): StatsTipo! @isAuthenticated
+  statsTipo(TipoDeclaracion: TipoDeclaracion!, anioEjercicio: Int!): StatsTipo @isAuthenticated
 
   "Get the user profile"
   userProfile(id: ID): User! @isAuthenticated
