@@ -10,12 +10,6 @@ export interface Stats {
   counters: CounterStat[];
 }
 
-/*export interface CounterStatsTipo {
-  anioEjercicio: number;
-  tipoDeclaracion: TipoDeclaracion;
-  count: number;
-}
-*/
 export interface StatsTipo {
   tipoDeclaracion: TipoDeclaracion;
   anioEjercicio: number;
