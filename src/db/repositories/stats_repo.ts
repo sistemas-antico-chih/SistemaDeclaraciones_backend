@@ -37,7 +37,7 @@ export class StatsRepository {
     const results = await DeclaracionModel.aggregate([
       //{ $match: { ...filters }},
       { $match: { 
-        'owner':userID, 'firmada':true, 'anioEjercicio':anioEjercicio 
+        'owner':userID, 'firmada':true, 'anioEjercicio':anioEjercicio, 'tipoDeclaracion':tipoDeclaracion
       }},
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
@@ -47,8 +47,9 @@ export class StatsRepository {
     results.forEach(tipo => {
       total += tipo.count;
     });
+    const tipodec=tipoDeclaracion;
     console.log('total: '+total);
-    console.log('tipoDeclaracion: '+tipoDeclaracion);
+    console.log('tipoDeclaracion: '+ tipodec);
 
     return { tipoDeclaracion, total};
   }
