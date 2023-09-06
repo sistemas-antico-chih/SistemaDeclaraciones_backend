@@ -7,3 +7,15 @@ type Stats {
   total: Int!
   counters: [CounterStat!]!
 }
+
+type CounterStatsTipo {
+  anioEjericio: Int
+  tipoDeclaracion: TipoDeclaracion!
+  count: Int!
+}
+
+type StatsTipo {
+  anioEjercicio: Int
+  total: Int!
+  counters: [CounterStatsTipo!]!
+}

@@ -9,3 +9,15 @@ export interface Stats {
   total: number;
   counters: CounterStat[];
 }
+
+export interface CounterStatsTipo {
+  anioEjercicio: number;
+  tipoDeclaracion: TipoDeclaracion;
+  count: number;
+}
+
+export interface StatsTipo {
+  anioEjercicio: number;
+  total: number;
+  counters: CounterStatsTipo[];
+}

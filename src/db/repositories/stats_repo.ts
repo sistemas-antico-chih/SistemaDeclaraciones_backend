@@ -1,4 +1,4 @@
-import { CounterStat, Stats } from '../../types';
+import { CounterStat, CounterStatsTipo, Stats, StatsTipo } from '../../types';
 import DeclaracionModel from '../models/declaracion_model';
 import mongoose from 'mongoose';
 
@@ -28,27 +28,29 @@ export class StatsRepository {
     return { total, counters };
   }
 
-  public static async getFirmados(userID?: string): Promise<Stats> {
+  public static async getStatsTipo(anioEjercicio: number, userID?: string): Promise<StatsTipo> {
     const filters: Record<string, any> = {};
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
     }
 
     const results = await DeclaracionModel.aggregate([
-      { $match: { ...filters } },
+      //{ $match: { ...filters }},
+      { $match: { 'owner':userID, 'firmada':true }},
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
 
-    const counters: CounterStat[] = [];
+    const counters: CounterStatsTipo[] = [];
     let total = 0;
     results.forEach(tipo => {
       total += tipo.count;
       counters.push({
+        anioEjercicio: tipo.anioEjercicio,
         tipoDeclaracion: tipo._id,
         count: tipo.count,
       });
     });
 
-    return { total, counters };
+    return { anioEjercicio, total, counters };
   }
 }
