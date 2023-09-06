@@ -20,7 +20,7 @@ export default {
       if (scopes.includes('Stats:read:all')) {
         return StatsRepository.getStatsTipo(args.tipoDeclaracion,args.anioEjercicio);
       } else if (scopes.includes('Stats:read:mine')) {
-        return StatsRepository.getStatsTipo(args.tipoDeclaracion, args.anioEjercicio,context.user.id);
+        return StatsRepository.getStatsTipo(args.tipoDeclaracion, args.anioEjercicio, context.user.id);
       }
 
       throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
