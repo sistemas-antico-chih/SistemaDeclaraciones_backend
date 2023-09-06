@@ -1,4 +1,4 @@
-import { CounterStat, CounterStatsTipo, Stats, StatsTipo } from '../../types';
+import { CounterStat, CounterStatsTipo, Stats, StatsTipo, TipoDeclaracion } from '../../types';
 import DeclaracionModel from '../models/declaracion_model';
 import mongoose from 'mongoose';
 
@@ -28,7 +28,7 @@ export class StatsRepository {
     return { total, counters };
   }
 
-  public static async getStatsTipo(anioEjercicio: number, userID?: string): Promise<StatsTipo> {
+  public static async getStatsTipo(tipoDeclaracion:TipoDeclaracion, anioEjercicio: number, userID?: string): Promise<StatsTipo> {
     const filters: Record<string, any> = {};
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
