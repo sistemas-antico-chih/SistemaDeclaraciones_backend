@@ -1,4 +1,4 @@
-import { CounterStat, Stats, StatsTipo, TipoDeclaracion } from '../../types';
+import { CounterStat, Stats, StatsTipo, CounterStatsTipo, TipoDeclaracion } from '../../types';
 import DeclaracionModel from '../models/declaracion_model';
 import mongoose from 'mongoose';
 
