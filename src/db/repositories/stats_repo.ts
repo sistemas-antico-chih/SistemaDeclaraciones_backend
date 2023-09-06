@@ -24,6 +24,9 @@ export class StatsRepository {
         count: tipo.count,
       });
     });
+    console.log(counters.values);
+    console.log(total);
+    console.log(counters[0].tipoDeclaracion);
 
     return { total, counters };
   }
