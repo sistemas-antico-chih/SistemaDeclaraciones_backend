@@ -15,9 +15,9 @@ export default {
       throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
     },
 
-    statsTipo(_: unknown, args:{userID?: string, tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsTipo> {
+    statsTipo(_: unknown, args:{tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsTipo> {
       const scopes = context.user.scopes;
-      if (args.userID == context.user.id && scopes.includes('StatsTipo:read:mine')) {
+      if (scopes.includes('StatsTipo:read:mine')) {
         return StatsRepository.getStatsTipo(args.tipoDeclaracion, args.anioEjercicio, context.user.id);
       }
 
