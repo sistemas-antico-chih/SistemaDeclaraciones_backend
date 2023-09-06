@@ -36,21 +36,18 @@ export class StatsRepository {
 
     const results = await DeclaracionModel.aggregate([
       //{ $match: { ...filters }},
-      { $match: { 'owner':userID, 'firmada':true }},
+      { $match: { 
+        'owner':userID, 'firmada':true, 'anioEjercicio':anioEjercicio 
+      }},
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
 
-    const counters: CounterStatsTipo[] = [];
+  
     let total = 0;
     results.forEach(tipo => {
       total += tipo.count;
-      counters.push({
-        anioEjercicio: tipo.anioEjercicio,
-        tipoDeclaracion: tipo._id,
-        count: tipo.count,
-      });
     });
 
-    return { anioEjercicio, total, counters };
+    return { tipoDeclaracion, anioEjercicio, total};
   }
 }
