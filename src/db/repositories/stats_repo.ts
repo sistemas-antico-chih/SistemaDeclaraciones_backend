@@ -50,10 +50,10 @@ export class StatsRepository {
 
     console.log("llega getStatsTipo");
     let total = 0;
-    /*results.forEach(tipo => {
-      total += tipo.count;
-    });*/
-    total=results.count;
+    results.forEach(tipo => {
+       tipo.count;
+    });
+    total=results.tipo.count;
     
     console.log('total: '+total);
 
