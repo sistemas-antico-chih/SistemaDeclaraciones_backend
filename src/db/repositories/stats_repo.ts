@@ -24,9 +24,6 @@ export class StatsRepository {
         count: tipo.count,
       });
     });
-    console.log(counters.values);
-    console.log(total);
-    console.log(counters[0].count);
 
     return { total, counters };
   }
@@ -59,7 +56,7 @@ export class StatsRepository {
         count: tipo.count,
       });
     });
-    //console.log('total: '+counters[0].count);
+    console.log('total: '+total);
 
     return { tipoDeclaracion, total};
   }
