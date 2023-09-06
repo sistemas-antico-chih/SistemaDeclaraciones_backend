@@ -59,7 +59,7 @@ export class StatsRepository {
         count: tipo.count,
       });
     });
-    console.log('total: '+counters[0].count);
+    //console.log('total: '+counters[0].count);
 
     return { tipoDeclaracion, total};
   }
