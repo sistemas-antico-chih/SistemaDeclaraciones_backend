@@ -49,12 +49,13 @@ export class StatsRepository {
     ]);
 
     console.log("llega getStatsTipo");
+    console.log('results: '+results);
     let total = 0;
-    results.forEach(tipo => {
+    /*results.forEach(tipo => {
        tipo.count;
     });
-    total=results.tipo.count;
-    
+    total=results;
+    */
     console.log('total: '+total);
 
     return { tipoDeclaracion, total};
