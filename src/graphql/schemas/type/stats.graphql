@@ -8,14 +8,8 @@ type Stats {
   counters: [CounterStat!]!
 }
 
-type CounterStatsTipo {
-  anioEjericio: Int
-  tipoDeclaracion: TipoDeclaracion!
-  count: Int!
-}
-
 type StatsTipo {
+  tipoDeclaracion: TipoDeclaracion!
   anioEjercicio: Int
   total: Int!
-  counters: [CounterStatsTipo!]!
 }
