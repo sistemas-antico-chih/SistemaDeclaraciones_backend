@@ -26,7 +26,7 @@ export class StatsRepository {
     });
     console.log(counters.values);
     console.log(total);
-    console.log(counters[0].tipoDeclaracion);
+    console.log(counters[0].count);
 
     return { total, counters };
   }
@@ -50,13 +50,16 @@ export class StatsRepository {
 
     console.log("llega getStatsTipo");
     console.log('results: '+results);
-    //const counters: []= [];
+    const counters: CounterStatsTipo[] = [];
     let total = 0;
     results.forEach(tipo => {
-      console.log('tipo: '+tipo);
+      total += tipo.count;
+      counters.push({
+        tipoDeclaracion: tipo._id,
+        count: tipo.count,
+      });
     });
-    //console.log(results.count);
-    console.log('total: '+total);
+    console.log('total: '+counters[0].count);
 
     return { tipoDeclaracion, total};
   }
