@@ -17,9 +17,9 @@ export default {
 
     statsTipo(_: unknown, args:{tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsTipo> {
       const scopes = context.user.scopes;
-      if (scopes.includes('Stats:read:all')) {
+      if (scopes.includes('StatsTipo:read:all')) {
         return StatsRepository.getStatsTipo(args.tipoDeclaracion,args.anioEjercicio);
-      } else if (scopes.includes('Stats:read:mine')) {
+      } else if (scopes.includes('StatsTipo:read:mine')) {
         return StatsRepository.getStatsTipo(args.tipoDeclaracion, args.anioEjercicio, context.user.id);
       }
 
