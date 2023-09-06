@@ -12,6 +12,5 @@ export interface Stats {
 
 export interface StatsTipo {
   tipoDeclaracion: TipoDeclaracion;
-  anioEjercicio: number;
   total: number;
 }

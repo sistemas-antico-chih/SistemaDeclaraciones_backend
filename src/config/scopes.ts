@@ -5,6 +5,7 @@ export class Scopes {
     [Role.USER]: [
       'DeclarationMetada:read:mine',
       'Stats:read:mine',
+      'StatsTipo:read:mine',
       'UserProfile:read:mine',
       'DeclarationPreview:read:mine'
     ],

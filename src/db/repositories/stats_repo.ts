@@ -48,6 +48,6 @@ export class StatsRepository {
       total += tipo.count;
     });
 
-    return { tipoDeclaracion, anioEjercicio, total};
+    return { tipoDeclaracion, total};
   }
 }
