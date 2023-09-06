@@ -15,6 +15,5 @@ type CounterStatsTipo {
 
 type StatsTipo {
   tipoDeclaracion: TipoDeclaracion!
-  anioEjercicio: Int
   total: Int!
 }

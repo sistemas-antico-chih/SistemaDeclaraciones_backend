@@ -39,9 +39,12 @@ export class StatsRepository {
 
     const results = await DeclaracionModel.aggregate([
       //{ $match: { ...filters }},
-      { $match: { 
-        'owner':userID, 'firmada':true, 'anioEjercicio':anioEjercicio, 'tipoDeclaracion':tipoDeclaracion
-      }},
+      { $match: { $and:[
+        {'owner':userID}, 
+        {'firmada':true}, 
+        {'anioEjercicio':anioEjercicio}, 
+        {'tipoDeclaracion':tipoDeclaracion}
+      ]}},
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
 
