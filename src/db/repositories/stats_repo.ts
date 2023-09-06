@@ -43,19 +43,18 @@ export class StatsRepository {
     const results = await DeclaracionModel.aggregate([
       //{ $match: { ...filters }},
       { $match: { 
-        'owner':userID, 'firmada':true, 'anioEjercicio':2023, 'tipoDeclaracion':tipoDeclaracion
+        'owner':userID, 'firmada':true, 'anioEjercicio':anioEjercicio, 'tipoDeclaracion':tipoDeclaracion
       }},
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
 
     console.log("llega getStatsTipo");
     console.log('results: '+results);
+    //const counters: []= [];
     let total = 0;
-    /*results.forEach(tipo => {
-       tipo.count;
+    results.forEach(tipo => {
+      console.log('tipo: '+tipo);
     });
-    total=results;
-    */
     console.log('total: '+total);
 
     return { tipoDeclaracion, total};
