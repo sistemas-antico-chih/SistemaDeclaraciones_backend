@@ -42,11 +42,13 @@ export class StatsRepository {
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
 
-  
+    console.log("llega getStatsTipo");
     let total = 0;
     results.forEach(tipo => {
       total += tipo.count;
     });
+    console.log('total: '+total);
+    console.log('tipoDeclaracion: '+tipoDeclaracion);
 
     return { tipoDeclaracion, total};
   }
