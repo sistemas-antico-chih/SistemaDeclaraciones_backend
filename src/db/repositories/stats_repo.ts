@@ -5,9 +5,10 @@ import mongoose from 'mongoose';
 export class StatsRepository {
   public static async get(userID?: string): Promise<Stats> {
     const filters: Record<string, any> = {};
+    const dec='CONCLUSION';
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
-      filters['anioEjercicio'] = mongoose.Types.ObjectId('2023');
+      filters['tipoDeclaracion'] = mongoose.Types.ObjectId(dec);
     }
     console.log(filters);
 
