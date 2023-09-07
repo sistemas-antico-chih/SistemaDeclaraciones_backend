@@ -14,11 +14,11 @@ export class StatsRepository {
 
     const results = await DeclaracionModel.aggregate([
     // { $match: { ...filters }},
-     { $match: { ...filters, 'firmada':true }},
-      /*{ $match: {$and: [
-        {'owner':userID},   
-      ]}},*/
-      { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
+     { $match: { $and:[ 
+       {...filters}, 
+       {'firmada':true }
+     ]}},
+     { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 }} }
     ]);
 
     const counters: CounterStat[] = [];
@@ -48,7 +48,7 @@ export class StatsRepository {
     const results = await DeclaracionModel.aggregate([
       //{ $match: { ...filters }},
       { $match: { $and:[
-        {'owner':userID}, 
+        { ...filters }, 
         {'firmada':true}, 
         {'anioEjercicio':anioEjercicio}, 
         {'tipoDeclaracion':tipoDeclaracion}
