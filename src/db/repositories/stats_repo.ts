@@ -13,8 +13,8 @@ export class StatsRepository {
     console.log(filters);
 
     const results = await DeclaracionModel.aggregate([
-     { $match: { ...filters }},
-     //{ $match: { 'owner':filters }},
+    // { $match: { ...filters }},
+     { $match: { 'owner': 'ObjectId("627acbe97d4066001ce42e04")' }},
       /*{ $match: {$and: [
         {'owner':userID},   
       ]}},*/
