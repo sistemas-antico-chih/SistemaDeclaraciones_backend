@@ -55,7 +55,13 @@ export class StatsRepository {
               { ...filters },
               { 'firmada': true },
               { 'anioEjercicio': anioEjercicio },
-              { 'tipoDeclaracion': tipoDeclaracion }
+              { 'tipoDeclaracion': tipoDeclaracion },
+              { 'datosGenerales' :{$exists:true}},
+              { 'domicilioDeclarante' :{$exists:true}},
+              { 'datosCurricularesDeclarante' :{$exists:true}},
+              { 'datosEmpleoCargoComision' :{$exists:true}},
+              { 'experienciaLaboral' :{$exists:true}},
+              { 'ingresos' :{$exists:true}},
             ]
           }
         },
@@ -81,7 +87,14 @@ export class StatsRepository {
             $and: [
               { ...filters },
               { 'firmada': true },
-              { 'tipoDeclaracion': tipoDeclaracion }
+              { 'tipoDeclaracion': tipoDeclaracion },
+              { 'datosGenerales' :{$exists:true}},
+              { 'domicilioDeclarante' :{$exists:true}},
+              { 'datosCurricularesDeclarante' :{$exists:true}},
+              { 'datosEmpleoCargoComision' :{$exists:true}},
+              { 'experienciaLaboral' :{$exists:true}},
+              { 'ingresos' :{$exists:true}},
+              { 'actividadAnualAnterior' :{$exists:true}},
             ]
           }
         },
