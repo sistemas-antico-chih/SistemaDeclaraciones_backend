@@ -8,10 +8,11 @@ export class StatsRepository {
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
     }
+    console.log(filters);
 
     const results = await DeclaracionModel.aggregate([
-     // { $match: { ...filters }},
-     { $match: { 'owner':userID }},
+     { $match: { ...filters }},
+     //{ $match: { 'owner':userID }},
       /*{ $match: {$and: [
         {'owner':userID},   
       ]}},*/
