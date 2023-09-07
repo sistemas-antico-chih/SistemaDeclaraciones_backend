@@ -13,15 +13,15 @@ export class StatsRepository {
     console.log(filters);
 
     const results = await DeclaracionModel.aggregate([
-      // { $match: { ...filters }},
-      {
+       { $match: { ...filters }},
+      /*{
         $match: {
           $and: [
             { ...filters },
             { 'firmada': true }
           ]
         }
-      },
+      },*/
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
     ]);
 
