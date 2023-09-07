@@ -7,7 +7,7 @@ export class StatsRepository {
     const filters: Record<string, any> = {};
     const dec='CONCLUSION';
     if (userID) {
-      filters['owner'] = mongoose.Types.ObjectId(userID);
+      //filters['owner'] = mongoose.Types.ObjectId(userID);
       filters['tipoDeclaracion'] = mongoose.Types.ObjectId(dec);
     }
     console.log(filters);
