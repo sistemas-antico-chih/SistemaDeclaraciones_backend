@@ -25,6 +25,8 @@ export class StatsRepository {
       });
     });
 
+    console.log('results1: '+results);
+
     return { total, counters };
   }
 
@@ -49,7 +51,7 @@ export class StatsRepository {
     ]);
 
     console.log("llega getStatsTipo");
-    console.log('results: '+results);
+    console.log('results2: '+results);
     const counters: CounterStatsTipo[] = [];
     let total = 0;
     results.forEach(tipo => {
