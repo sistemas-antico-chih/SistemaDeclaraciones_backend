@@ -5,11 +5,11 @@ import mongoose from 'mongoose';
 export class StatsRepository {
   public static async get(userID?: string): Promise<Stats> {
     const filters: Record<string, any> = {};
-    const dec='CONCLUSION';
+    
     if (userID) {
-      //filters['owner'] = mongoose.Types.ObjectId(userID);
-      filters['tipoDeclaracion'] = mongoose.Types.ObjectId(dec);
+      filters['owner'] = mongoose.Types.ObjectId(userID);
     }
+    console.log(userID);
     console.log(filters);
 
     const results = await DeclaracionModel.aggregate([
