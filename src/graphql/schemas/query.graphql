@@ -17,11 +17,11 @@ type Query {
   "Retrieve all the stats by declaration type"
   stats: Stats! @isAuthenticated
 
-  "Retrieve all the stats by declaration type group by anioEjercicio"
-  statsTipo(tipoDeclaracion: TipoDeclaracion!): StatsTipo @isAuthenticated
+  "Retrieve all the stats by declarations INICIAL and CONCLUSION"
+  statsTipo: StatsTipo! @isAuthenticated
 
-  "Retrieve all the stats by declaration type group by anioEjercicio"
-  statsModif(tipoDeclaracion: TipoDeclaracion!, anioEjercicio: Int): StatsModif @isAuthenticated
+  "Retrieve all the stats by declaration type MODIFICACION group by anioEjercicio"
+  statsModif: StatsModif! @isAuthenticated
 
   "Get the user profile"
   userProfile(id: ID): User! @isAuthenticated

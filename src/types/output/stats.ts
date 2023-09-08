@@ -25,6 +25,6 @@ export interface CounterStatsModif {
 }
 
 export interface StatsModif {
-  tipoDeclaracion: TipoDeclaracion;
   total: number;
+  counters: CounterStatsModif;
 }

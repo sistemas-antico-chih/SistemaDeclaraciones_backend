@@ -37,11 +37,8 @@ export class StatsRepository {
     return { total, counters };
   }
 
-  public static async getStatsTipo(tipoDeclaracion: TipoDeclaracion, userID?: string): Promise<StatsTipo> {
+  public static async getStatsTipo(userID?: string): Promise<StatsTipo> {
     const filters: Record<string, any> = {};
-    //console.log('anioEjercicio: ' + anioEjercicio);
-    console.log('tipoDeclaracion: ' + tipoDeclaracion);
-
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
     }
@@ -79,11 +76,8 @@ export class StatsRepository {
     return {  counters };
   }
 
-  public static async getStatsModif(tipoDeclaracion: TipoDeclaracion, anioEjercicio: number, userID?: string): Promise<StatsModif> {
+ /* public static async getStatsModif( userID?: string): Promise<StatsModif> {
     const filters: Record<string, any> = {};
-    console.log('anioEjercicio: ' + anioEjercicio);
-    console.log('tipoDeclaracion: ' + tipoDeclaracion);
-
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
     }
@@ -95,8 +89,7 @@ export class StatsRepository {
           $and: [
             { ...filters },
             { 'firmada': true },
-            { 'anioEjercicio': anioEjercicio },
-            { 'tipoDeclaracion': tipoDeclaracion },
+            { 'tipoDeclaracion': 'MODIFICACION'},
             { 'datosGenerales': { $exists: true } },
             { 'domicilioDeclarante': { $exists: true } },
             { 'datosCurricularesDeclarante': { $exists: true } },
@@ -106,7 +99,7 @@ export class StatsRepository {
           ]
         }
       },
-      { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
+      { $group: { _id: '$anioEjercicio', count: { $sum: 1 } } }
     ]);
     
     const counters: CounterStatsModif[] = [];
@@ -119,7 +112,7 @@ export class StatsRepository {
       });
     });
     console.log('total: ' + total);
-    return { tipoDeclaracion, total };
-  }
+    return { total, counters };
+  }*/
 }
 
