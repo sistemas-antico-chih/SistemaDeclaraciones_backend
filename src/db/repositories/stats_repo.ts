@@ -109,6 +109,7 @@ export class StatsRepository {
       total += tipo.count;
       counters.push({
         anioEjercicio: tipo._id,
+        declaracionCompleta: tipo._id,
         count: tipo.count,
       });
     });
