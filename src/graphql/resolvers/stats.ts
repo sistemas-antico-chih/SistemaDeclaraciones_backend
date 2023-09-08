@@ -1,4 +1,4 @@
-import { Context, Stats, StatsTipo, TipoDeclaracion } from '../../types';
+import { Context, Stats, StatsTipo, StatsModif, TipoDeclaracion } from '../../types';
 import CreateError from 'http-errors';
 import { StatsRepository } from '../../db/repositories/stats_repo';
 
@@ -24,7 +24,7 @@ export default {
       throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
     },
 
-    statsModif(_: unknown, args:{tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsTipo> {
+    statsModif(_: unknown, args:{tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsModif> {
       const scopes = context.user.scopes;
       if (scopes.includes('Stats:read:mine')) {
         return StatsRepository.getStatsModif(args.tipoDeclaracion, args.anioEjercicio, context.user.id);
