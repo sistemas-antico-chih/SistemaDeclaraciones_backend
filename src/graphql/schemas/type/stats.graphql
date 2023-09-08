@@ -14,6 +14,7 @@ type CounterStatTipo {
 }
 
 type StatsTipo {
+  total: Int!
   counters: [CounterStatsTipo!]!
 }
 

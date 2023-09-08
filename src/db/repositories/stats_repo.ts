@@ -53,7 +53,7 @@ export class StatsRepository {
           $and: [
             { ...filters },
             { 'firmada': true },
-            { 'tipoDeclaracion': tipoDeclaracion },
+            { 'tipoDeclaracion':{$ne:"MODIFICACION"} },
             { 'datosGenerales': { $exists: true } },
             { 'domicilioDeclarante': { $exists: true } },
             { 'datosCurricularesDeclarante': { $exists: true } },
@@ -69,14 +69,14 @@ export class StatsRepository {
     const counters: CounterStatsTipo[] = [];
     let total = 0;
     results.forEach(tipo => {
-      //        total += tipo.count;
+      total += tipo.count;
       counters.push({
         tipoDeclaracion: tipo._id,
         count: tipo.count,
       });
     });
     console.log('total: ' + total);
-    return { counters };
+    return { total, counters };
   }
 
   public static async getStatsModif(tipoDeclaracion: TipoDeclaracion, anioEjercicio: number, userID?: string): Promise<StatsModif> {
