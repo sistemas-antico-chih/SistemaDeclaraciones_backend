@@ -21,6 +21,7 @@ export interface StatsTipo {
 
 export interface CounterStatsModif {
   anioEjercicio: number;
+  declaracionCompleta: boolean;
   count: number;
 }
 
