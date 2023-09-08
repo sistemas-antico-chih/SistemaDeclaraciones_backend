@@ -108,8 +108,8 @@ export class StatsRepository {
       console.log("group: "+tipo._id);
       total += tipo.count;
       counters.push({
-        anioEjercicio: tipo._id,
-        declaracionCompleta: tipo._id,
+        anioEjercicio: tipo._id[0],
+        declaracionCompleta: tipo._id[1],
         count: tipo.count,
       });
     });
