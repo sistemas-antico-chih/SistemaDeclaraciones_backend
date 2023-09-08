@@ -1,4 +1,4 @@
-import { CounterStat, Stats, StatsTipo, CounterStatsTipo, TipoDeclaracion } from '../../types';
+import { CounterStat, Stats, StatsTipo, CounterStatsTipo, StatsModif, TipoDeclaracion } from '../../types';
 import DeclaracionModel from '../models/declaracion_model';
 import mongoose from 'mongoose';
 
@@ -13,7 +13,7 @@ export class StatsRepository {
     console.log(filters);
 
     const results = await DeclaracionModel.aggregate([
-       { $match: { ...filters }},
+      { $match: { ...filters } },
       /*{
         $match: {
           $and: [
@@ -37,7 +37,49 @@ export class StatsRepository {
     return { total, counters };
   }
 
-  public static async getStatsTipo(tipoDeclaracion: TipoDeclaracion, anioEjercicio: number, userID?: string): Promise<StatsTipo> {
+  public static async getStatsTipo(tipoDeclaracion: TipoDeclaracion, userID?: string): Promise<StatsTipo> {
+    const filters: Record<string, any> = {};
+    //console.log('anioEjercicio: ' + anioEjercicio);
+    console.log('tipoDeclaracion: ' + tipoDeclaracion);
+
+    if (userID) {
+      filters['owner'] = mongoose.Types.ObjectId(userID);
+    }
+
+    const results = await DeclaracionModel.aggregate([
+      //{ $match: { ...filters }},
+      {
+        $match: {
+          $and: [
+            { ...filters },
+            { 'firmada': true },
+            { 'tipoDeclaracion': tipoDeclaracion },
+            { 'datosGenerales': { $exists: true } },
+            { 'domicilioDeclarante': { $exists: true } },
+            { 'datosCurricularesDeclarante': { $exists: true } },
+            { 'datosEmpleoCargoComision': { $exists: true } },
+            { 'experienciaLaboral': { $exists: true } },
+            { 'ingresos': { $exists: true } },
+            { 'actividadAnualAnterior': { $exists: true } },
+          ]
+        }
+      },
+      { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
+    ]);
+    const counters: CounterStatsTipo[] = [];
+    let total = 0;
+    results.forEach(tipo => {
+      //        total += tipo.count;
+      counters.push({
+        tipoDeclaracion: tipo._id,
+        count: tipo.count,
+      });
+    });
+    console.log('total: ' + total);
+    return { counters };
+  }
+
+  public static async getStatsModif(tipoDeclaracion: TipoDeclaracion, anioEjercicio: number, userID?: string): Promise<StatsModif> {
     const filters: Record<string, any> = {};
     console.log('anioEjercicio: ' + anioEjercicio);
     console.log('tipoDeclaracion: ' + tipoDeclaracion);
@@ -46,71 +88,37 @@ export class StatsRepository {
       filters['owner'] = mongoose.Types.ObjectId(userID);
     }
 
-    if (tipoDeclaracion === 'MODIFICACION') {
-      const results = await DeclaracionModel.aggregate([
-        //{ $match: { ...filters }},
-        {
-          $match: {
-            $and: [
-              { ...filters },
-              { 'firmada': true },
-              { 'anioEjercicio': anioEjercicio },
-              { 'tipoDeclaracion': tipoDeclaracion },
-              { 'datosGenerales' :{$exists:true}},
-              { 'domicilioDeclarante' :{$exists:true}},
-              { 'datosCurricularesDeclarante' :{$exists:true}},
-              { 'datosEmpleoCargoComision' :{$exists:true}},
-              { 'experienciaLaboral' :{$exists:true}},
-              { 'ingresos' :{$exists:true}},
-            ]
-          }
-        },
-        { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
-      ]);
-      const counters: CounterStatsTipo[] = [];
-      let total = 0;
-      results.forEach(tipo => {
-        total += tipo.count;
-        counters.push({
-          tipoDeclaracion: tipo._id,
-          count: tipo.count,
-        });
+    const results = await DeclaracionModel.aggregate([
+      //{ $match: { ...filters }},
+      {
+        $match: {
+          $and: [
+            { ...filters },
+            { 'firmada': true },
+            { 'anioEjercicio': anioEjercicio },
+            { 'tipoDeclaracion': tipoDeclaracion },
+            { 'datosGenerales': { $exists: true } },
+            { 'domicilioDeclarante': { $exists: true } },
+            { 'datosCurricularesDeclarante': { $exists: true } },
+            { 'datosEmpleoCargoComision': { $exists: true } },
+            { 'experienciaLaboral': { $exists: true } },
+            { 'ingresos': { $exists: true } },
+          ]
+        }
+      },
+      { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
+    ]);
+    //const counters: CounterStatsModif[] = [];
+    let total = results.count;
+    /*results.forEach(tipo => {
+      total += tipo.count;
+      counters.push({
+        tipoDeclaracion: tipo._id,
+        count: tipo.count,
       });
-      console.log('total: ' + total);
-      return { tipoDeclaracion, total };
-    }
-    else {
-      const results = await DeclaracionModel.aggregate([
-        //{ $match: { ...filters }},
-        {
-          $match: {
-            $and: [
-              { ...filters },
-              { 'firmada': true },
-              { 'tipoDeclaracion': tipoDeclaracion },
-              { 'datosGenerales' :{$exists:true}},
-              { 'domicilioDeclarante' :{$exists:true}},
-              { 'datosCurricularesDeclarante' :{$exists:true}},
-              { 'datosEmpleoCargoComision' :{$exists:true}},
-              { 'experienciaLaboral' :{$exists:true}},
-              { 'ingresos' :{$exists:true}},
-              { 'actividadAnualAnterior' :{$exists:true}},
-            ]
-          }
-        },
-        { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
-      ]);
-      const counters: CounterStatsTipo[] = [];
-      let total = 0;
-      results.forEach(tipo => {
-        total += tipo.count;
-        counters.push({
-          tipoDeclaracion: tipo._id,
-          count: tipo.count,
-        });
-      });
-      console.log('total: ' + total);
-      return { tipoDeclaracion, total };
-    }
+    });*/
+    console.log('total: ' + total);
+    return { tipoDeclaracion, total };
   }
 }
+

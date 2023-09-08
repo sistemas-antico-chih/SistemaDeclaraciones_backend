@@ -15,10 +15,19 @@ export default {
       throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
     },
 
-    statsTipo(_: unknown, args:{tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsTipo> {
+    statsTipo(_: unknown, args:{tipoDeclaracion: TipoDeclaracion}, context: Context): Promise<StatsTipo> {
       const scopes = context.user.scopes;
       if (scopes.includes('Stats:read:mine')) {
-        return StatsRepository.getStatsTipo(args.tipoDeclaracion, args.anioEjercicio, context.user.id);
+        return StatsRepository.getStatsTipo(args.tipoDeclaracion, context.user.id);
+      }
+
+      throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
+    },
+
+    statsModif(_: unknown, args:{tipoDeclaracion: TipoDeclaracion, anioEjercicio: number}, context: Context): Promise<StatsTipo> {
+      const scopes = context.user.scopes;
+      if (scopes.includes('Stats:read:mine')) {
+        return StatsRepository.getStatsModif(args.tipoDeclaracion, args.anioEjercicio, context.user.id);
       }
 
       throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
