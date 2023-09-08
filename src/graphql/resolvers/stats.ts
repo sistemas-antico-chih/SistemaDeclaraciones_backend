@@ -1,4 +1,4 @@
-import { Context, Stats, StatsTipo, StatsModif, TipoDeclaracion } from '../../types';
+import { Context, Stats, StatsTipo, StatsModif } from '../../types';
 import CreateError from 'http-errors';
 import { StatsRepository } from '../../db/repositories/stats_repo';
 
