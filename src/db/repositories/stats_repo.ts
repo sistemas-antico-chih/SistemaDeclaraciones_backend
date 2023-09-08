@@ -1,4 +1,4 @@
-import { CounterStat, Stats, StatsTipo, CounterStatsTipo, StatsModif, TipoDeclaracion } from '../../types';
+import { CounterStat, Stats, StatsTipo, CounterStatsTipo, StatsModif, CounterStatsModif, TipoDeclaracion } from '../../types';
 import DeclaracionModel from '../models/declaracion_model';
 import mongoose from 'mongoose';
 
@@ -108,15 +108,16 @@ export class StatsRepository {
       },
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
     ]);
-    //const counters: CounterStatsModif[] = [];
-    let total = results.count;
-    /*results.forEach(tipo => {
+    
+    const counters: CounterStatsModif[] = [];
+    let total = 0;
+    results.forEach(tipo => {
       total += tipo.count;
       counters.push({
         tipoDeclaracion: tipo._id,
         count: tipo.count,
       });
-    });*/
+    });
     console.log('total: ' + total);
     return { tipoDeclaracion, total };
   }

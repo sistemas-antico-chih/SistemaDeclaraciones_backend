@@ -17,6 +17,11 @@ type StatsTipo {
   counters: [CounterStatsTipo!]!
 }
 
+type CounterStatModif {
+  tipoDeclaracion: TipoDeclaracion!
+  count: Int!
+}
+
 type StatsModif {
   tipoDeclaracion: TipoDeclaracion!
   total: Int
