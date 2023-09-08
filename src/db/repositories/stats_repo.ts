@@ -99,12 +99,13 @@ export class StatsRepository {
           ]
         }
       },
-      { $group: { _id: '$anioEjercicio', count: { $sum: 1 } } }
+      { $group: { _id: {'anioEjercicio':'$anioEjercicio','declaracionCompleta':'$declaracionCompleta'}, count: { $sum: 1 } } }
     ]);
     
     const counters: CounterStatsModif[] = [];
     let total = 0;
     results.forEach(tipo => {
+      console.log("group: "+tipo._id);
       total += tipo.count;
       counters.push({
         anioEjercicio: tipo._id,
