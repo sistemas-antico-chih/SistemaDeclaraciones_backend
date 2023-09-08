@@ -76,7 +76,7 @@ export class StatsRepository {
     return {  counters };
   }
 
- /* public static async getStatsModif( userID?: string): Promise<StatsModif> {
+  public static async getStatsModif( userID?: string): Promise<StatsModif> {
     const filters: Record<string, any> = {};
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
@@ -107,12 +107,12 @@ export class StatsRepository {
     results.forEach(tipo => {
       total += tipo.count;
       counters.push({
-        tipoDeclaracion: tipo._id,
+        anioEjercicio: tipo._id,
         count: tipo.count,
       });
     });
     console.log('total: ' + total);
     return { total, counters };
-  }*/
+  }
 }
 

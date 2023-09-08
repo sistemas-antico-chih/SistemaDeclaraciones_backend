@@ -20,11 +20,11 @@ export interface StatsTipo {
 }
 
 export interface CounterStatsModif {
-  tipoDeclaracion: TipoDeclaracion;
+  anioEjercicio: number;
   count: number;
 }
 
 export interface StatsModif {
   total: number;
-  counters: CounterStatsModif;
+  counters: CounterStatsModif[];
 }
