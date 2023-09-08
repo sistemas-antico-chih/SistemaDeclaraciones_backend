@@ -16,7 +16,6 @@ export interface CounterStatsTipo {
 }
 
 export interface StatsTipo {
-  total: number;
   counters: CounterStatsTipo[];
 }
 

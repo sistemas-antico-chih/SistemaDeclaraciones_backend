@@ -76,7 +76,7 @@ export class StatsRepository {
       });
     });
     console.log('total: ' + total);
-    return { total, counters };
+    return {  counters };
   }
 
   public static async getStatsModif(tipoDeclaracion: TipoDeclaracion, anioEjercicio: number, userID?: string): Promise<StatsModif> {
