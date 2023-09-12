@@ -15,10 +15,10 @@ export default {
   Query: {
     declaracion(
       _: unknown,
-      args: { tipoDeclaracion: TipoDeclaracion, declaracionCompleta?: boolean },
+      args: { tipoDeclaracion: TipoDeclaracion, declaracionCompleta?: boolean, anioEjercicio: number },
       context: Context,
     ): Promise<Declaracion> {
-      return DeclaracionRepository.getOrCreate(context.user.id, args.tipoDeclaracion, args.declaracionCompleta);
+      return DeclaracionRepository.getOrCreate(context.user.id, args.tipoDeclaracion, args.declaracionCompleta, args.anioEjercicio);
     },
 
     declaracionesMetadata(_: unknown, args: { userID?: string, filter?: DeclaracionesFilterInput, pagination?: PaginationInputOptions }, context: Context): Promise<Pagination<DeclaracionDocument>> {

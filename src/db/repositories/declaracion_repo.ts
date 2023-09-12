@@ -83,6 +83,7 @@ export class DeclaracionRepository {
     userID: string,
     tipoDeclaracion: TipoDeclaracion,
     declaracionCompleta = true,
+    anioEjercicio: number
   ): Promise<DeclaracionDocument> {
     const user = await UserModel.findById({ _id: userID });
     if (!user) {
@@ -100,7 +101,7 @@ export class DeclaracionRepository {
 
     //console.log(tipoDeclaracion);
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
-    var anio = new Date().getFullYear();
+
     var aux = await DeclaracionModel.countDocuments({ 'owner': user._id });
     var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
     var aux2 = await DeclaracionModel.countDocuments({ 'owner': user._id });
@@ -118,7 +119,7 @@ export class DeclaracionRepository {
 
       declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
         $set: {
-          anioEjercicio: anio,
+          anioEjercicio: anioEjercicio,
           datosGenerales: {
             nombre: user.nombre,
             primerApellido: user.primerApellido,
