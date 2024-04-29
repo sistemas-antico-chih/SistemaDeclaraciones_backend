@@ -14,14 +14,6 @@ export class StatsRepository {
 
     const results = await DeclaracionModel.aggregate([
       { $match: { ...filters } },
-      /*{
-        $match: {
-          $and: [
-            { ...filters },
-            { 'firmada': true }
-          ]
-        }
-      },*/
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
     ]);
 
@@ -44,7 +36,6 @@ export class StatsRepository {
     }
 
     const results = await DeclaracionModel.aggregate([
-      //{ $match: { ...filters }},
       {
         $match: {
           $and: [
@@ -83,7 +74,6 @@ export class StatsRepository {
     }
 
     const results = await DeclaracionModel.aggregate([
-      //{ $match: { ...filters }},
       {
         $match: {
           $and: [

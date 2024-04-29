@@ -155,37 +155,33 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    if (declaracion.datosGenerales) {
-      if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
-        || !declaracion.datosGenerales.telefono) {
+    if (declaracion.tipoDeclaracion == 'MODIFICACION'){
+      throw new CreateError.Forbidden('NO ES POSIBLE FIRMAR DECLARACI ^sN ANTES DE MAYO');
+    }
+    else {
+      if (!declaracion.datosGenerales) {
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
-    }
-    if (!declaracion.datosGenerales) {
-      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
-    }
-    if (!declaracion.domicilioDeclarante) {
-      throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
-    }
-    if (!declaracion.datosCurricularesDeclarante) {
-      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
-    }
-    if (!declaracion.datosEmpleoCargoComision) {
-      throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
-    }
-    if (!declaracion.experienciaLaboral) {
-      throw new CreateError.Forbidden('FALTA CAPTURAR EXPERIENCIA LABORAL');
-    }
-    if (!declaracion.ingresos) {
-      throw new CreateError.Forbidden('FALTA CAPTURAR INGRESOS');
-    }
-    if (declaracion.tipoDeclaracion !== 'MODIFICACION') {
+      if (!declaracion.domicilioDeclarante) {
+        throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
+      }
+      if (!declaracion.datosCurricularesDeclarante) {
+        throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
+      }
+      if (!declaracion.datosEmpleoCargoComision) {
+        throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
+      }
+      if (!declaracion.experienciaLaboral) {
+        throw new CreateError.Forbidden('FALTA CAPTURAR EXPERIENCIA LABORAL');
+      }
+      if (!declaracion.ingresos) {
+        throw new CreateError.Forbidden('FALTA CAPTURAR INGRESOS');
+      }
       if (!declaracion.actividadAnualAnterior) {
         throw new CreateError.Forbidden('FALTA CAPTURAR ACTIVIDAD ANUAL ANTERIOR');
       }
     }
     declaracion.firmada = true;
-    //declaracion.adecuada = true; //verificar
     declaracion.save();
 
     try {
