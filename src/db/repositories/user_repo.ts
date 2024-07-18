@@ -166,7 +166,7 @@ export class UserRepository {
     user.password = BCrypt.hash(user.password);
     try {
       const createdUser = await UserModel.create(user);
-      await ElasticSearchAPI.add(createdUser);
+      //await ElasticSearchAPI.add(createdUser);
 
       return createdUser;
     } catch(err) {
