@@ -77,7 +77,7 @@ export class UserRepository {
     return true;
   }
 
-  public static async getAll(pagination: PaginationInputOptions = {}): Promise<Pagination<UserDocument>> {
+  public static async getAll(query = {}, pagination: PaginationInputOptions = {}, context: Context): Promise<Pagination<UserDocument>> {
     let institucion = '';
     if (!context.user.roles.includes(Role.ROOT)) {
       const user = await UserRepository.getUser(context.user.id);

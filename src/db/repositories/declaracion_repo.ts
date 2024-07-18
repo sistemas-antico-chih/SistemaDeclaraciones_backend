@@ -178,7 +178,7 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    let anio = new Date().getMonth();
+    //let anio = new Date().getMonth();
     if(declaracion.datosGenerales){
       if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
         || !declaracion.datosGenerales.telefono){
