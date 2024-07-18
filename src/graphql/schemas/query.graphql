@@ -1,5 +1,5 @@
 type Query {
-  "Get or create a new declaration."
+   "Get or create a new declaration."
   declaracion(tipoDeclaracion: TipoDeclaracion!, declaracionCompleta: Boolean): Declaracion! @hasRole(roles: [USER])
 
   "Fetch declaration metadata"

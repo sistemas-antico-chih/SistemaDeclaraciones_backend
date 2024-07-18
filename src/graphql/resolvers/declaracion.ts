@@ -16,7 +16,7 @@ export default {
       return DeclaracionRepository.getAllByUser(context.user.id, args.filter, args.pagination);
     },
 
-    declaracionesMetadata(_: unknown, args: { userID?: string, filter?: DeclaracionesFilterInput, pagination?: PaginationInputOptions }, context: Context): Promise<Pagination<DeclaracionDocument>> {
+    declaracionesMetadata(_: unknown, args: { userID?: string; filter?: DeclaracionesFilterInput; pagination?: PaginationInputOptions }, context: Context): Promise<Pagination<DeclaracionDocument>> {
       const scopes = context.user.scopes;
       if (args.userID) {
         if (scopes.includes('DeclarationMetada:read:all')) {
@@ -29,13 +29,14 @@ export default {
       }
 
       if (scopes.includes('DeclarationMetada:read:all')) {
-        return DeclaracionRepository.getAll(args.filter, args.pagination);
+        // user admin
+        return DeclaracionRepository.getAll(args.filter, args.pagination, context);
       } else if (scopes.includes('DeclarationMetada:read:mine')) {
         return DeclaracionRepository.getAllByUser(context.user.id, args.filter, args.pagination);
       }
 
       throw new CreateError.Unauthorized(`User[${context.user.id}] is not allowed to perform this operation.`);
-    },
+    }
   },
 
   Mutation: {
