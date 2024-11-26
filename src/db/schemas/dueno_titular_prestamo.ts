@@ -1,3 +1,4 @@
+import { CatalogoSchema } from './catalogo';
 import { Schema } from 'mongoose';
 import { TipoPersona } from '../../types/enums';
 import { addNullValue } from '../../library/utils';
@@ -16,5 +17,5 @@ export const DuenoTitularPrestamoSchema = new Schema({
   },
   nombreTitular: string_type,
   rfc: string_type,
-  relacionConTitular: string_type
+  relacionConTitular: CatalogoSchema
 });
