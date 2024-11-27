@@ -470,7 +470,7 @@ type DuenoTitularPrestamo  {
   tipoDuenoTitular: TipoPersona
   nombreTitular: LimitedString
   rfc: LimitedString
-  relacionConTitular: Catalogo
+  relacionConTitular: LimitedString
 }
 
 type Prestamo {

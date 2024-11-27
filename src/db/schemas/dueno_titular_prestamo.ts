@@ -17,6 +17,5 @@ export const DuenoTitularPrestamoSchema = new Schema({
   },
   nombreTitular: string_type,
   rfc: string_type,
-  relacionConTitular: CatalogoSchema
-  
+  relacionConTitular: string_type
 });

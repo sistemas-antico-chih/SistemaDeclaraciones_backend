@@ -475,7 +475,7 @@ interface DuenoTitularPrestamo {
   tipoDuenoTitular?: enums.TipoPersona;
   nombreTitular?: string;
   rfc?: string;
-  relacionConTitular?: Catalogo;
+  relacionConTitular?: string;
 }
 
 interface Prestamo {

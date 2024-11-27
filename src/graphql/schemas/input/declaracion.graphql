@@ -470,7 +470,7 @@ input DuenoTitularPrestamoInput {
   tipoDuenoTitular: TipoPersona
   nombreTitular: LimitedString
   rfc: LimitedString
-  relacionConTitular: CatalogoInput
+  relacionConTitular: LimitedString
 }
 
 input PrestamoInput {
