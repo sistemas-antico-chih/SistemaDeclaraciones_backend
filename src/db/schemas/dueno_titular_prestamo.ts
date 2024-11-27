@@ -1,4 +1,3 @@
-import { CatalogoSchema } from './catalogo';
 import { Schema } from 'mongoose';
 import { TipoPersona } from '../../types/enums';
 import { addNullValue } from '../../library/utils';
