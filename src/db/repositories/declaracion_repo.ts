@@ -133,18 +133,57 @@ export class DeclaracionRepository {
     if (!user) {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
     }
+
     const filter = {
       tipoDeclaracion: tipoDeclaracion,
       declaracionCompleta: declaracionCompleta,
       firmada: false,
-      owner: user
+      owner: user,
     };
 
-    const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
-    user.declaraciones.push(declaracion);
-    user.save();
+    //console.log(tipoDeclaracion);
+    //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
+    var anio = new Date().getFullYear()-1;
+    if (tipoDeclaracion == 'MODIFICACION'){
+      anio = anio;
+    }
+
+    var aux = await DeclaracionModel.countDocuments({ 'owner': user._id });
+    var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
+    var aux2 = await DeclaracionModel.countDocuments({ 'owner': user._id });
+    if (aux === aux2) {
+      user.declaraciones.push(declaracion);
+      user.save();
+    }
+    else if (aux !== aux2) {
+      if (user.primerApellido === "X") {
+        user.primerApellido = "";
+      }
+      if (user.segundoApellido === "X") {
+        user.segundoApellido = "";
+      }
+
+      declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
+        $set: {
+          anioEjercicio: anio,
+          datosGenerales: {
+            nombre: user.nombre,
+            primerApellido: user.primerApellido,
+            segundoApellido: user.segundoApellido,
+            curp: user.curp,
+            rfc: {
+              rfc: user.rfc.substring(0, 10),
+              homoClave: user.rfc.substring(10, 13)
+            }
+          }
+        }
+      }, { new: true, upsert: true });
+      user.declaraciones.push(declaracion);
+      user.save();
+    }
     return declaracion;
+
   }
 
   public static async lastDeclaracion(userID: string): Promise<DeclaracionDocument> {
