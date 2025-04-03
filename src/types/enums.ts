@@ -88,6 +88,7 @@ export enum TipoParticipacionFideicomiso {
 export enum TipoPersona {
   FISICA = 'FISICA',
   MORAL = 'MORAL',
+  NINGUNO = 'NINGUNO',
 }
 
 export enum TipoRelacion {
