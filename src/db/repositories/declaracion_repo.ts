@@ -144,7 +144,7 @@ export class DeclaracionRepository {
     //console.log(tipoDeclaracion);
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
-    var anio = new Date().getFullYear()-1;
+    let anio = new Date().getFullYear();
     if (tipoDeclaracion == 'MODIFICACION'){
       anio = anio;
     }
@@ -217,7 +217,11 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    //let anio = new Date().getMonth();
+    /*let anio = new Date().getMonth()+1;
+    if (declaracion.tipoDeclaracion === 'MODIFICACION' && anio === 4){
+      throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
+    }*/
+
     if(declaracion.datosGenerales){
       if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
         || !declaracion.datosGenerales.telefono){
