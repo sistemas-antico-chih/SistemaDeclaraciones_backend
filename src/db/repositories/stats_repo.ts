@@ -66,7 +66,7 @@ export class StatsRepository {
           $and: [
             { ...filters },
             { 'firmada': true },
-            { 'tipoDeclaracion':{$ne:"MODIFICACION"} },
+            //{ 'tipoDeclarac/ion':{$ne:"MODIFICACION"} },
             { 'datosGenerales': { $exists: true } },
             { 'domicilioDeclarante': { $exists: true } },
             { 'datosCurricularesDeclarante': { $exists: true } },
@@ -74,7 +74,7 @@ export class StatsRepository {
             { 'experienciaLaboral': { $exists: true } },
             { 'ingresos': { $exists: true } },
             { 'actividadAnualAnterior': { $exists: true } },
-          ]
+          ],
         }
       },
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
