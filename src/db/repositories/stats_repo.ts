@@ -1,4 +1,4 @@
-import { Context,CounterStat, Stats, StatsTipo, CounterStatsTipo, StatsModif, CounterStatsModif } from '../../types';
+import { Context, CounterStat, Stats, StatsTipo, CounterStatsTipo, StatsModif, CounterStatsModif } from '../../types';
 import CreateError from 'http-errors';
 import DeclaracionModel from '../models/declaracion_model';
 import { Role } from './../../types/enums';
@@ -63,18 +63,35 @@ export class StatsRepository {
     const results = await DeclaracionModel.aggregate([
       {
         $match: {
-          $and: [
-            { ...filters },
-            { 'firmada': true },
-            //{ 'tipoDeclarac/ion':{$ne:"MODIFICACION"} },
-            { 'datosGenerales': { $exists: true } },
-            { 'domicilioDeclarante': { $exists: true } },
-            { 'datosCurricularesDeclarante': { $exists: true } },
-            { 'datosEmpleoCargoComision': { $exists: true } },
-            { 'experienciaLaboral': { $exists: true } },
-            { 'ingresos': { $exists: true } },
-            { 'actividadAnualAnterior': { $exists: true } },
-          ],
+          $or: [{
+            $and: [
+              { ...filters },
+              { 'firmada': true },
+              { 'tipoDeclaracion': { $ne: "MODIFICACION" } },
+              { 'datosGenerales': { $exists: true } },
+              { 'domicilioDeclarante': { $exists: true } },
+              { 'datosCurricularesDeclarante': { $exists: true } },
+              { 'datosEmpleoCargoComision': { $exists: true } },
+              { 'experienciaLaboral': { $exists: true } },
+              { 'ingresos': { $exists: true } },
+              { 'actividadAnualAnterior': { $exists: true } },
+            ]
+          },
+          {
+            $and: [
+              { ...filters },
+              { 'firmada': true },
+              { 'tipoDeclaracion': { $eq: "MODIFICACION" } },
+              { 'datosGenerales': { $exists: true } },
+              { 'domicilioDeclarante': { $exists: true } },
+              { 'datosCurricularesDeclarante': { $exists: true } },
+              { 'datosEmpleoCargoComision': { $exists: true } },
+              { 'experienciaLaboral': { $exists: true } },
+              { 'ingresos': { $exists: true } },
+              //{ 'actividadAnualAnterior': { $exists: true } },
+            ]
+          }
+          ]
         }
       },
       { $group: { _id: '$tipoDeclaracion', count: { $sum: 1 } } }
@@ -89,10 +106,10 @@ export class StatsRepository {
       });
     });
     console.log('total: ' + total);
-    return {  counters };
+    return { counters };
   }
 
-  public static async getStatsModif( userID?: string): Promise<StatsModif> {
+  public static async getStatsModif(userID?: string): Promise<StatsModif> {
     const filters: Record<string, any> = {};
     if (userID) {
       filters['owner'] = mongoose.Types.ObjectId(userID);
@@ -104,7 +121,7 @@ export class StatsRepository {
           $and: [
             { ...filters },
             { 'firmada': true },
-            { 'tipoDeclaracion': 'MODIFICACION'},
+            { 'tipoDeclaracion': 'MODIFICACION' },
             { 'datosGenerales': { $exists: true } },
             { 'domicilioDeclarante': { $exists: true } },
             { 'datosCurricularesDeclarante': { $exists: true } },
@@ -114,13 +131,13 @@ export class StatsRepository {
           ]
         }
       },
-      { $group: { _id: {'anioEjercicio':'$anioEjercicio','declaracionCompleta':'$declaracionCompleta'}, count: { $sum: 1 } } }
+      { $group: { _id: { 'anioEjercicio': '$anioEjercicio', 'declaracionCompleta': '$declaracionCompleta' }, count: { $sum: 1 } } }
     ]);
-    
+
     const counters: CounterStatsModif[] = [];
     let total = 0;
     results.forEach(tipo => {
-      console.log("group: "+tipo._id);
+      console.log("group: " + tipo._id);
       total += tipo.count;
       counters.push({
         anioEjercicio: tipo._id.anioEjercicio,
