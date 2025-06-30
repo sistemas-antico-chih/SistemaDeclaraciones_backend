@@ -141,7 +141,7 @@ export class DeclaracionRepository {
       owner: user,
     };
 
-    //console.log(tipoDeclaracion);
+    console.log(tipoDeclaracion);
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
     let anio = new Date().getFullYear();
