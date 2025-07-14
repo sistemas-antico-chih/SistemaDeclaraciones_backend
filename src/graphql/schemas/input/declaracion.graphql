@@ -98,11 +98,14 @@ input DatosEmpleoCargoComisionInput {
   ambitoPublico: AmbitoPublico
   nombreEntePublico: LimitedString
   areaAdscripcion: LimitedString
+  areaAdscripcionConcluye: LimitedString
   empleoCargoComision: LimitedString
   contratadoPorHonorarios: Boolean
   nivelEmpleoCargoComision: LimitedString
+  nivelEmpleoCargoComisionConcluye: LimitedString
   funcionPrincipal: LimitedString
   fechaTomaPosesion: Date
+  fechaConclusionEncargo: Date
   telefonoOficina: TelefonoOficinaInput
   domicilioMexico: DomicilioMexicoInput
   domicilioExtranjero: DomicilioExtranjeroInput

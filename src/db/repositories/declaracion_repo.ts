@@ -222,6 +222,8 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
     }*/
 
+      
+
     if(declaracion.datosGenerales){
       if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
         || !declaracion.datosGenerales.telefono){
