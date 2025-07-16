@@ -110,11 +110,14 @@ interface DatosEmpleoCargoComision {
   ambitoPublico?: enums.AmbitoPublico;
   nombreEntePublico?: string;
   areaAdscripcion?: string;
+  areaAdscripcionConcluye?: string;
   empleoCargoComision?: string;
   contratadoPorHonorarios?: boolean;
   nivelEmpleoCargoComision?: string;
+  nivelEmpleoCargoComisionConcluye?: string;
   funcionPrincipal?: string;
   fechaTomaPosesion?: string;
+  fechaConclusionEncargo?: string;
   telefonoOficina?: TelefonoOficina;
   domicilioMexico?: DomicilioMexico;
   domicilioExtranjero?: DomicilioExtranjero;
