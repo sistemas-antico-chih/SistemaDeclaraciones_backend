@@ -63,7 +63,6 @@ enum TipoDeclaracion {
   INICIAL
   MODIFICACION
   CONCLUSION
-  AVISO
 }
 
 enum TipoFideicomiso {

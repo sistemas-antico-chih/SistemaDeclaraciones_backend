@@ -36,7 +36,7 @@ export class DeclaracionRepository {
     const filters: Record<string, any> = { ...filter };
     const page: number = pagination.page || 0;
     const limit: number = pagination.size || 20;
-
+    
     let data: Pagination<DeclaracionDocument> = { docs: [], page, limit, hasMore: false, hasNextPage: false, hasPrevPage: false };
 
     const id = context?.user.id;
@@ -141,11 +141,11 @@ export class DeclaracionRepository {
       owner: user,
     };
 
-    console.log(tipoDeclaracion);
+    //console.log(tipoDeclaracion);
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
     let anio = new Date().getFullYear();
-    if (tipoDeclaracion == 'MODIFICACION') {
+    if (tipoDeclaracion == 'MODIFICACION'){
       anio = anio;
     }
 
@@ -222,100 +222,33 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
     }*/
 
-    console.log(declaracion.tipoDeclaracion);
-    if (declaracion.tipoDeclaracion !== 'AVISO') {
-      if (declaracion.datosGenerales) {
-        if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
-          || !declaracion.datosGenerales.telefono) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
-        }
-      }
-      if (!declaracion.datosGenerales) {
+    if(declaracion.datosGenerales){
+      if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
+        || !declaracion.datosGenerales.telefono){
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
-      }
-      if (!declaracion.domicilioDeclarante) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
-      }
-      if (!declaracion.datosCurricularesDeclarante) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
-      }
-      if (!declaracion.datosEmpleoCargoComision) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
-      }
-      if (!declaracion.experienciaLaboral) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR EXPERIENCIA LABORAL');
-      }
-      if (!declaracion.ingresos) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR INGRESOS');
-      }
-      if (declaracion.tipoDeclaracion !== 'MODIFICACION') {
-        if (!declaracion.actividadAnualAnterior) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR ACTIVIDAD ANUAL ANTERIOR');
-        }
-      }
-      if (declaracion.declaracionCompleta === true) {
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR DATOS PAREJA');
-        }
-        if (!declaracion.datosDependientesEconomicos) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR DATOS DEPENDIENTES');
-        }
-        if (!declaracion.bienesInmuebles) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR BIENES INMUEBLES');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR VEHICULOS');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR BIENES MUEBLES');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR INVERSIONES CUENTAS VALORES');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR ADEUDOS PASIVOS');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR PRESTAMO COMODATO');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR PARTICIPACION');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR TOMA DECISIONES');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR APOYOS');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR REPRESENTACIONES');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR CLIENTES PRINCIPALES');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR BENEFICIOS PRIVADOS');
-        }
-        if (!declaracion.datosPareja) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR FIDEICOMISOS');
-        }
       }
     }
-    if (declaracion.tipoDeclaracion === 'AVISO'){
-      if (declaracion.datosGenerales) {
-        if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
-          || !declaracion.datosGenerales.telefono) {
-          throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
-        }
-      }
-      if (!declaracion.datosGenerales) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
-      }
-      if (!declaracion.domicilioDeclarante) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
-      }
-      if (!declaracion.datosEmpleoCargoComision) {
-        throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
+    if (!declaracion.datosGenerales) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
+    }
+    if (!declaracion.domicilioDeclarante) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
+    }
+    if (!declaracion.datosCurricularesDeclarante) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR DATOS CURRICULARES');
+    }
+    if (!declaracion.datosEmpleoCargoComision) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
+    }
+    if (!declaracion.experienciaLaboral) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR EXPERIENCIA LABORAL');
+    }
+    if (!declaracion.ingresos) {
+      throw new CreateError.Forbidden('FALTA CAPTURAR INGRESOS');
+    }
+    if (declaracion.tipoDeclaracion !== 'MODIFICACION') {
+      if (!declaracion.actividadAnualAnterior) {
+        throw new CreateError.Forbidden('FALTA CAPTURAR ACTIVIDAD ANUAL ANTERIOR');
       }
     }
 
@@ -345,8 +278,6 @@ export class DeclaracionRepository {
     } else if (declaracion.firmada) {
       throw new CreateError.NotAcceptable(`Declaracion[${declaracionID}] is already signed, it cannot be updated.`);
     }
-
-    console.log("llega aqui backend")
 
     const filter = {
       _id: declaracionID,
