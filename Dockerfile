@@ -7,6 +7,7 @@ WORKDIR /backend
 
 ARG NODE_ENV
 
+RUN npm i express-unless --save
 RUN yarn add global yarn \
 && yarn install \
 && yarn build \

@@ -44,10 +44,6 @@ export default class InstitucionesAPI {
       case 'CONCLUSION':
         insData = { ...insData, acuse: a.conclusion, declaracion: { ...d.conclusion, subtitulo: d.subtitulo } };
         break;
-      
-      case 'AVISO':
-        insData = { ...insData, acuse: a.conclusion, declaracion: { ...d.aviso, subtitulo: d.subtitulo } };
-        break;
 
       default:
         console.log(__filename, 'tipoDeclaracion', 'no deberias estar aqui');
