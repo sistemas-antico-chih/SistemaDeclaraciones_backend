@@ -222,9 +222,21 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
     }*/
 
+<<<<<<< HEAD
     if(declaracion.datosGenerales){
       if(!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
         || !declaracion.datosGenerales.telefono){
+=======
+    console.log(declaracion.tipoDeclaracion);
+    if (declaracion.tipoDeclaracion !== 'AVISO') {
+      if (declaracion.datosGenerales) {
+        if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
+          || !declaracion.datosGenerales.telefono) {
+          throw new CreateError.Forbidden('FFALTA CAPTURAR DATOS GENERALES');
+        }
+      }
+      if (!declaracion.datosGenerales) {
+>>>>>>> 5c3cb830026c7aca54004020be0f76e987ad868f
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
     }
