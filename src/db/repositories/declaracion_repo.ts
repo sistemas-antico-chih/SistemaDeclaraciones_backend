@@ -301,7 +301,7 @@ export class DeclaracionRepository {
         }
       }
     }
-    if (declaracion.tipoDeclaracion === 'SAVISO'){
+    if (declaracion.tipoDeclaracion === 'CONCLUSION'){
       if (declaracion.datosGenerales) {
         if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
