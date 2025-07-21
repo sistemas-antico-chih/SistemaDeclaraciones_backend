@@ -223,7 +223,7 @@ export class DeclaracionRepository {
     }*/
 
     console.log(declaracion.tipoDeclaracion);
-    if (declaracion.tipoDeclaracion !== 'AAVISO') {
+    if (declaracion.tipoDeclaracion !== 'AVISO') {
       if (declaracion.datosGenerales) {
         if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
