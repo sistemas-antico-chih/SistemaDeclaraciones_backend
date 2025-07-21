@@ -227,7 +227,7 @@ export class DeclaracionRepository {
       if (declaracion.datosGenerales) {
         if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
-          throw new CreateError.Forbidden('FfALTA CAPTURAR DATOS GENERALES');
+          throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
         }
       }
       if (!declaracion.datosGenerales) {
