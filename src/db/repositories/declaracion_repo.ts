@@ -223,11 +223,11 @@ export class DeclaracionRepository {
     }*/
 
     console.log(declaracion.tipoDeclaracion);
-    if (declaracion.tipoDeclaracion !== 'AVISO') {
+    if (declaracion.tipoDeclaracion !== 'CONCLUSION') {
       if (declaracion.datosGenerales) {
         if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
-          throw new CreateError.Forbidden('FFFALTA CAPTURAR DATOS GENERALES');
+          throw new CreateError.Forbidden('FVVFFALTA CAPTURAR DATOS GENERALES');
         }
       }
       if (!declaracion.datosGenerales) {
