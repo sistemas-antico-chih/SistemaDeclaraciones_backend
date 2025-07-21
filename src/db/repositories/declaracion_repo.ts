@@ -260,7 +260,7 @@ export class DeclaracionRepository {
         if (!declaracion.datosDependientesEconomicos) {
           throw new CreateError.Forbidden('FALTA CAPTURAR DATOS DEPENDIENTES');
         }
-        if (!declaracion.bienesInmuebles) {
+        if (!declaracion.bienesImuebles) {
           throw new CreateError.Forbidden('FALTA CAPTURAR BIENES INMUEBLES');
         }
         if (!declaracion.datosPareja) {
