@@ -63,7 +63,7 @@ export enum TipoDeclaracion {
   INICIAL = 'INICIAL',
   MODIFICACION = 'MODIFICACION',
   CONCLUSION = 'CONCLUSION',
-  AVISO = 'AVISOO',
+  AVISO = 'AVISO',
 }
 
 export enum TipoFideicomiso {
