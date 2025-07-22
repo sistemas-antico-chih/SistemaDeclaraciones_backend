@@ -134,14 +134,18 @@ export class DeclaracionRepository {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
     }
 
-    console.log(tipoDeclaracion);
-
       const filter = {
         tipoDeclaracion: tipoDeclaracion,
         declaracionCompleta: declaracionCompleta,
         firmada: false,
         owner: user,
       }
+    
+      if(filter.tipoDeclaracion==='AVISO'){
+        filter.declaracionCompleta = !declaracionCompleta;
+      }
+      
+      
     
     console.log("filter: "+filter.tipoDeclaracion+' '+filter.declaracionCompleta);
     
