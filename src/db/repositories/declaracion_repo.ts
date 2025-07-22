@@ -143,8 +143,7 @@ export class DeclaracionRepository {
         owner: user,
       }
     
-    console.log("filter: "+filter);
-
+    console.log("filter: "+filter.tipoDeclaracion+' '+filter.declaracionCompleta);
     
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
