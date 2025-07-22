@@ -46,7 +46,7 @@ export default class InstitucionesAPI {
         break;
 
       case 'AVISO':
-        insData = { ...insData, acuse: a.conclusion, declaracion: { ...d.conclusion, subtitulo: d.subtitulo } };
+        insData = { ...insData, acuse: a.aviso, declaracion: { ...d.aviso, subtitulo: d.subtitulo } };
         break;
 
       default:
