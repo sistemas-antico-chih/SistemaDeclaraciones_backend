@@ -145,9 +145,9 @@ export class DeclaracionRepository {
         filter.declaracionCompleta = !declaracionCompleta;
       }
       
-      
+
     
-    console.log("filter: "+filter.tipoDeclaracion+' '+filter.declaracionCompleta);
+    //console.log("filter: "+filter.tipoDeclaracion+' '+filter.declaracionCompleta);
     
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
