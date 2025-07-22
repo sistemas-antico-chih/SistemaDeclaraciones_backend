@@ -649,10 +649,6 @@ type Declaracion {
   createdAt: Date!
   updatedAt: Date!
   owner: User!
-<<<<<<< .merge_file_U0udep
-=======
-
->>>>>>> .merge_file_Z0aIKt
   anioEjercicio: Int
   datosGenerales: DatosGenerales
   domicilioDeclarante: DomicilioDeclarante
