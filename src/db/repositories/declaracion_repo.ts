@@ -134,14 +134,18 @@ export class DeclaracionRepository {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
     }
 
-    const filter = {
-      tipoDeclaracion: tipoDeclaracion,
-      declaracionCompleta: declaracionCompleta,
-      firmada: false,
-      owner: user,
-    };
-
     console.log(tipoDeclaracion);
+
+      const filter = {
+        tipoDeclaracion: tipoDeclaracion,
+        declaracionCompleta: declaracionCompleta,
+        firmada: false,
+        owner: user,
+      }
+    
+    console.log("filter: "+filter);
+
+    
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
     let anio = new Date().getFullYear();
@@ -301,7 +305,7 @@ export class DeclaracionRepository {
         }
       }
     }
-    if (declaracion.tipoDeclaracion === 'AVISO'){
+    if (declaracion.tipoDeclaracion === 'AVISO') {
       if (declaracion.datosGenerales) {
         if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
