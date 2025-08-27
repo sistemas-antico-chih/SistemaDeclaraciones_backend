@@ -97,6 +97,7 @@ input DatosEmpleoCargoComisionInput {
   nivelOrdenGobierno: NivelOrdenGobierno
   ambitoPublico: AmbitoPublico
   nombreEntePublico: LimitedString
+  areaAdscripcion: LimitedString
   areaAdscripcionConcluye: LimitedString
   empleoCargoComision: LimitedString
   contratadoPorHonorarios: Boolean
