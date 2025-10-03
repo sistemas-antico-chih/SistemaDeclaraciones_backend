@@ -151,7 +151,7 @@ export class DeclaracionRepository {
     //algo
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
 
-    let anio = new Date().getFullYear();
+    /*let anio = new Date().getFullYear();
     if (tipoDeclaracion == 'MODIFICACION') {
       anio = anio;
     }
@@ -188,9 +188,12 @@ export class DeclaracionRepository {
       }, { new: true, upsert: true });
       user.declaraciones.push(declaracion);
       user.save();
-    }
-    return declaracion;
+    }*/
+    const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
+    user.declaraciones.push(declaracion);
+    user.save();
 
+    return declaracion;
   }
 
   public static async lastDeclaracion(userID: string): Promise<DeclaracionDocument> {
