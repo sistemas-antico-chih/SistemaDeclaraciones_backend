@@ -8,8 +8,8 @@ export default {
       return UserRepository.forgotPassword(args.username);
     },
 
-    login(_: unknown, args: { username: string, password: string }): Promise<Login> {
-      return UserRepository.login(args.username, args.password);
+    login(_: unknown, args: { identifier: string, password: string }): Promise<Login> {
+      return UserRepository.login(args.identifier, args.password);
     },
 
     // search(_: unknown, args: { keyword: string; pagination?: PaginationInputOptions }): Promise<Pagination<UserES>> {
