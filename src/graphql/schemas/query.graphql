@@ -9,7 +9,7 @@ type Query {
   forgotPassword(username: LimitedString!): Boolean!
 
   "Authenticate a user in the system."
-  login(username: Email!, password: LimitedString!): Login!
+  login(username: LimitedString!, password: LimitedString!): Login!
   #login(username: Email, curp: LimitedString, password: LimitedString!): Login!
 
   "Search users"
