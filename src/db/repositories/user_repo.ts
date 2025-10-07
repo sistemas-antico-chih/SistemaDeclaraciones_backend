@@ -120,10 +120,14 @@ export class UserRepository {
   let query: any = {};
   
   if (emailOrCurp.includes("@")) {
-    // Caso: correo electrónico
+    // Caso: correo electrónico 
+    console.log("entra correo");
+    console.log(emailOrCurp);
     query = { username: emailOrCurp.toLowerCase() };
   } else {
     // Caso: CURP
+    console.log("entra curp");
+    console.log(emailOrCurp);
     query = { curp: emailOrCurp.toUpperCase() };
   }
 
