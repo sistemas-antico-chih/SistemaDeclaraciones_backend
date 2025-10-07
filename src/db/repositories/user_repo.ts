@@ -116,12 +116,18 @@ export class UserRepository {
     return user;
   }
 
-  public static async login(username: string, password: string): Promise<Login> {
-    const user = await UserModel.findOne({ username: username });
+  public static async login(emailOrCurp : string, password: string): Promise<Login> {
+    const searchKey = emailOrCurp.includes("@") ? emailOrCurp.toUpperCase() : emailOrCurp;
+    const user = await UserModel.findOne({ 
+      $or:[
+        {username: searchKey},
+        {curp: searchKey},
+      ]
+    });
     if (!user) {
-      throw new CreateError.NotFound(`User[${username}] does not exist.`);
+      throw new CreateError.NotFound(`Credenciales inválidas.`);
     } else if (!BCrypt.compare(password, user.password)) {
-      throw new CreateError.Forbidden('The provided password does not match.');
+      throw new CreateError.Forbidden('Credenciales inválidas.');
     }
 
     // NOTE: Only the last successfully logged user is allowed to use the refresh token
