@@ -116,26 +116,27 @@ export class UserRepository {
     return user;
   }
 
-  public static async login(emailOrCurp: string, password: string): Promise<Login> {
+  public static async login( _: any, 
+    args: { email?: string; curp?: string; password: string }
+  ): Promise<Login> {
   let query: any = {};
   
-  if (emailOrCurp.includes("@")) {
-    // Caso: correo electrónico
-    query = { username: emailOrCurp.toLowerCase() };
+  if (args.email) {
+    query = { username: args.email.toLowerCase() };
+  } else if (args.curp) {
+    query = { curp: args.curp.toUpperCase() };
   } else {
-    // Caso: CURP
-    query = { curp: emailOrCurp.toUpperCase() };
+    throw new CreateError.BadRequest("Debe enviar email o curp");
   }
 
   const user = await UserModel.findOne(query);
-
   if (!user) {
-    throw new CreateError.NotFound(`Credenciales inválidas.`);
+    throw new CreateError.NotFound("Credenciales inválidas.");
   }
 
-  const isPasswordValid = await BCrypt.compare(password, user.password);
+  const isPasswordValid = await BCrypt.compare(args.password, user.password);
   if (!isPasswordValid) {
-    throw new CreateError.Forbidden('Credenciales inválidas.');
+    throw new CreateError.Forbidden("Credenciales inválidas.");
   }
 
   // Generar refresh token
