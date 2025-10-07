@@ -117,12 +117,12 @@ export class UserRepository {
   }
 
   public static async login( _: any, 
-    args: { email?: string; curp?: string; password: string }
+    args: { username?: string; curp?: string; password: string }
   ): Promise<Login> {
   let query: any = {};
   
-  if (args.email) {
-    query = { username: args.email.toLowerCase() };
+  if (args.username) {
+    query = { username: args.username.toLowerCase() };
   } else if (args.curp) {
     query = { curp: args.curp.toUpperCase() };
   } else {
