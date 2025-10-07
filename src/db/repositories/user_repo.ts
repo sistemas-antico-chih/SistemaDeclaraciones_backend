@@ -126,10 +126,10 @@ export class UserRepository {
     }
     console.log('isEmail: ' + isEmail);
     console.log('searchkey: ' + identifier);
-    const isPasswordValid = await BCrypt.compare(password, user.password);
+    
     if (!user) {
       throw new CreateError.NotFound(`Credenciales inválidas.`);
-    } else if (!isPasswordValid) {
+    } else if (!BCrypt.compare(password, user.password)) {
       throw new CreateError.Forbidden('Credenciales inválidas.');
     }
 
