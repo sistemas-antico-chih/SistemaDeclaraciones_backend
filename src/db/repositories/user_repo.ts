@@ -126,9 +126,10 @@ export class UserRepository {
     }
     console.log('isEmail: ' + isEmail);
     console.log('searchkey: ' + identifier);
+    const isPasswordValid = await BCrypt.compare(password, user.password);
     if (!user) {
       throw new CreateError.NotFound(`Credenciales inválidas.`);
-    } else if (!BCrypt.compare(password, user.password)) {
+    } else if (!isPasswordValid) {
       throw new CreateError.Forbidden('Credenciales inválidas.');
     }
 
@@ -137,7 +138,7 @@ export class UserRepository {
       salt: Crypto.randomBytes(20).toString('hex'),
       expiration: Date.now() + ms(EnvironmentConfig.RefreshJWTConfig.expiresIn)
     };
-    user.save();
+    await user.save();
 
     return {
       user: user,
