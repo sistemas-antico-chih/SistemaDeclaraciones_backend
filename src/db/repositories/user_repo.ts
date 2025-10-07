@@ -26,7 +26,7 @@ export class UserRepository {
     return { $regex: cadena, $options: 'i' };
   };
 
-  public static async changeRoles(userID: string, roles: [Role]): Promise<UserDocument> {
+  public static async changeRoles(userID: string, roles:[Role]): Promise<UserDocument> {
     const user = await UserModel.findById({ _id: userID });
     if (!user) {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
@@ -116,54 +116,48 @@ export class UserRepository {
     return user;
   }
 
-  public static async login(_: any,
-    args: { username: string; password: string }
-  ): Promise<Login> {
-    const emailOrCurp = args.username;
-    const password = args.password;
-    console.log("email: "+emailOrCurp);
-    let query: any = {};
-
-    if (emailOrCurp.includes("@")) {
-      console.log("entra correo");
-      query = { username: emailOrCurp.toLowerCase() };
-    } else {
-      console.log("entra curp");
-      query = { curp: emailOrCurp.toUpperCase() };
-    }
-
-    // Buscar usuario
-    const user = await UserModel.findOne(query);
-    if (!user) {
-      throw new CreateError.NotFound("Credenciales inválidas.");
-    }
-
-    // Validar contraseña
-    const isPasswordValid = await BCrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new CreateError.Forbidden("Credenciales inválidas.");
-    }
-
-    // Generar refresh token
-    user.refreshJwtToken = {
-      salt: Crypto.randomBytes(20).toString('hex'),
-      expiration: Date.now() + ms(EnvironmentConfig.RefreshJWTConfig.expiresIn)
-    };
-    await user.save();
-
-    return {
-      user,
-      jwtToken: Jwt.sign(EnvironmentConfig.AuthJWTConfig, {
-        id: user._id,
-        roles: user.roles,
-        scopes: Scopes.createByRoles(user.roles)
-      }),
-      refreshJwtToken: Jwt.sign(EnvironmentConfig.RefreshJWTConfig, {
-        id: user._id,
-        salt: user.refreshJwtToken.salt,
-      }),
-    };
+  public static async login(emailOrCurp: string, password: string): Promise<Login> {
+  let query: any = {};
+  
+  if (emailOrCurp.includes("@")) {
+    // Caso: correo electrónico
+    query = { username: emailOrCurp.toLowerCase() };
+  } else {
+    // Caso: CURP
+    query = { curp: emailOrCurp.toUpperCase() };
   }
+
+  const user = await UserModel.findOne(query);
+
+  if (!user) {
+    throw new CreateError.NotFound(`Credenciales inválidas.`);
+  }
+
+  const isPasswordValid = await BCrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    throw new CreateError.Forbidden('Credenciales inválidas.');
+  }
+
+  // Generar refresh token
+  user.refreshJwtToken = {
+    salt: Crypto.randomBytes(20).toString('hex'),
+    expiration: Date.now() + ms(EnvironmentConfig.RefreshJWTConfig.expiresIn)
+  };
+  await user.save();
+
+  return {
+    user,
+    jwtToken: Jwt.sign(EnvironmentConfig.AuthJWTConfig, {
+      id: user._id,
+      roles: user.roles,
+      scopes: Scopes.createByRoles(user.roles)
+    }),
+    refreshJwtToken: Jwt.sign(EnvironmentConfig.RefreshJWTConfig, {
+      id: user._id,
+      salt: user.refreshJwtToken.salt,
+    }),
+  };
+}
 
 
   public static async resetPassword(token: string, newPassword: string): Promise<boolean> {
@@ -190,7 +184,7 @@ export class UserRepository {
       //await ElasticSearchAPI.add(createdUser);
 
       return createdUser;
-    } catch (err) {
+    } catch(err) {
       throw new CreateError.BadRequest(`User with username: ${user.username} already exist`);
     }
   }
