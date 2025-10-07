@@ -117,7 +117,7 @@ export class UserRepository {
   }
 
   public static async login(emailOrCurp : string, password: string): Promise<Login> {
-    const searchKey = emailOrCurp.includes("@") ? emailOrCurp.toUpperCase() : emailOrCurp;
+    const searchKey = emailOrCurp.includes("@") ? emailOrCurp.toUpperCase() : emailOrCurp.toLowerCase();
     const user = await UserModel.findOne({ 
       $or:[
         {username: searchKey},
