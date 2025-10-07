@@ -10,7 +10,7 @@ type Query {
 
   "Authenticate a user in the system."
   #login(username: LimitedString!, password: LimitedString!): Login!
-  #login(username: Email, curp: LimitedString, password: LimitedString!): Login!
+  login(username: Email, curp: LimitedString, password: LimitedString!): Login!
 
   "Search users"
   search(keyword: LimitedString!, pagination: PaginationOptionsInput): UsersPage @hasRole(roles: [ADMIN, SUPER_ADMIN, ROOT])
