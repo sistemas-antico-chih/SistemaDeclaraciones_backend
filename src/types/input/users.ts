@@ -11,6 +11,6 @@ export interface UserProfileInput {
 }
 
 export interface UserSignUpInput extends UserProfileInput {
-  identifier: string;
+  username: string;
   password: string;
 }
