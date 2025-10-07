@@ -114,8 +114,3 @@ enum ValorConformeA {
   SENTENCIA
   CONTRATO
 }
-
-enum ValidationType {
-  EMAIL
-  CURP
-}
