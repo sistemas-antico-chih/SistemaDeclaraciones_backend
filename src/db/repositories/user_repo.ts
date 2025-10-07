@@ -26,7 +26,7 @@ export class UserRepository {
     return { $regex: cadena, $options: 'i' };
   };
 
-  public static async changeRoles(userID: string, roles:[Role]): Promise<UserDocument> {
+  public static async changeRoles(userID: string, roles: [Role]): Promise<UserDocument> {
     const user = await UserModel.findById({ _id: userID });
     if (!user) {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
@@ -116,15 +116,16 @@ export class UserRepository {
     return user;
   }
 
-  public static async login(emailOrCurp : string, password: string): Promise<Login> {
-    const searchKey = emailOrCurp.includes("@") ? emailOrCurp.toLowerCase() : emailOrCurp.toUpperCase();
-    const user = await UserModel.findOne({ 
-      $or:[
-        {username: searchKey},
-        {curp: searchKey},
-      ]
-    });
-    console.log('searchkey: '+searchKey);
+  public static async login(identifier: string, password: string): Promise<Login> {
+    const isEmail = identifier.includes('@');
+    let user;
+    if (isEmail) {
+      user = await UserModel.findOne({ email: identifier.toLocaleLowerCase() });
+    } else {
+      user = await UserModel.findOne({ curp: identifier.toLocaleUpperCase() });
+    }
+    console.log('isEmail: ' + isEmail);
+    console.log('searchkey: ' + identifier);
     if (!user) {
       throw new CreateError.NotFound(`Credenciales inválidas.`);
     } else if (!BCrypt.compare(password, user.password)) {
@@ -176,7 +177,7 @@ export class UserRepository {
       //await ElasticSearchAPI.add(createdUser);
 
       return createdUser;
-    } catch(err) {
+    } catch (err) {
       throw new CreateError.BadRequest(`User with username: ${user.username} already exist`);
     }
   }
