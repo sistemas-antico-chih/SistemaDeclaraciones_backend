@@ -9,7 +9,9 @@ type Query {
   forgotPassword(username: LimitedString!): Boolean!
 
   "Authenticate a user in the system."
-  login(username: Email!, password: LimitedString!): Login!
+  #login(username: Email!, password: LimitedString!): Login!
+  directive @validate(format: [ValidationType!]!) on ARGUMENT_DEFINITION
+  login(username: String! @validate(format: [EMAIL, CURP]), password: LimitedString!): Login!
 
   "Search users"
   search(keyword: LimitedString!, pagination: PaginationOptionsInput): UsersPage @hasRole(roles: [ADMIN, SUPER_ADMIN, ROOT])

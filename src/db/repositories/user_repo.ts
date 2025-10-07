@@ -124,6 +124,7 @@ export class UserRepository {
         {curp: searchKey},
       ]
     });
+    console.log('searchkey: '+searchKey);
     if (!user) {
       throw new CreateError.NotFound(`Credenciales inválidas.`);
     } else if (!BCrypt.compare(password, user.password)) {
