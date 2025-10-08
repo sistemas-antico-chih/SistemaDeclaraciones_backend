@@ -119,15 +119,12 @@ export class UserRepository {
   public static async login(emailOrCurp: string, password: string): Promise<Login> {
   let query: any = {};
   
+  console.log("1-2-3")
   if (emailOrCurp.includes("@")) {
     // Caso: correo electrónico 
-    console.log("entra correo");
-    console.log(emailOrCurp);
     query = { username: emailOrCurp.toLowerCase() };
   } else {
     // Caso: CURP
-    console.log("entra curp");
-    console.log(emailOrCurp);
     query = { curp: emailOrCurp.toUpperCase() };
   }
 
