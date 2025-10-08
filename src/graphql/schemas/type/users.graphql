@@ -1,6 +1,6 @@
 type User {
   _id: ID!
-  username: Email!
+  username: LimitedString!
   nombre: LimitedString!
   primerApellido: LimitedString
   segundoApellido: LimitedString

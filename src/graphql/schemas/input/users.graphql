@@ -8,7 +8,7 @@ input UserProfileInput {
 }
 
 input UserSignUpInput {
-  username: Email!
+  username: LimitedString!
   password: LimitedString!
   nombre: LimitedString!
   primerApellido: LimitedString
