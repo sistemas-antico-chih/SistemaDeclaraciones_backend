@@ -118,7 +118,7 @@ export class UserRepository {
 
   public static async login(emailOrCurp: string, password: string): Promise<Login> {
   let query: any = {};
-  
+  console.log(emailOrCurp);
   if (emailOrCurp.includes("@")) {
     // Caso: correo electrónico 
     console.log("entra correo");
