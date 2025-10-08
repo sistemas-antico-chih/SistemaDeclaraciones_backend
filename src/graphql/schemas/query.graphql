@@ -9,7 +9,7 @@ type Query {
   forgotPassword(username: LimitedString!): Boolean!
 
   "Authenticate a user in the system."
-  login(identifier: LimitedString!, password: LimitedString!): Login!
+  login(username: LimitedString!, password: LimitedString!): Login!
 
   "Search users"
   search(keyword: LimitedString!, pagination: PaginationOptionsInput): UsersPage @hasRole(roles: [ADMIN, SUPER_ADMIN, ROOT])
