@@ -35,26 +35,14 @@ export default class ReportsAPI {
       res.setHeader('Access-Control-Allow-Origin', '*');
 
       return res.status(StatusCodes.OK).send(responsePreview);
-    /*} catch (err) {
+    } catch (err) {
       console.log('err: ', err);
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
         success: false,
         message: 'Something went wrong'
       });
     }
-  }*/} catch (err) {
-  console.error('Error en declaracionPreview:', err?.message);
-  console.error('Stack:', err?.stack);
-  if (err?.response) {
-    console.error('Error response data:', err.response.data);
-    console.error('Error response status:', err.response.status);
   }
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-    success: false,
-    message: 'Something went wrong',
-  });
-}
-
 
   public getRouter(): Express.Router {
     return this.router;
