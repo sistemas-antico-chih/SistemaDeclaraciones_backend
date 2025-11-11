@@ -356,8 +356,6 @@ export class DeclaracionRepository {
       throw new CreateError.NotAcceptable(`Declaracion[${declaracionID}] is already signed, it cannot be updated.`);
     }
 
-    console.log("llega aqui backend")
-
     const filter = {
       _id: declaracionID,
       firmada: false
