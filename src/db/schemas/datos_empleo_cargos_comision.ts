@@ -35,7 +35,7 @@ export const DatosEmpleoCargoComisionSchema = new Schema({
   nivelEmpleoCargoComisionConcluye: string_type,
   funcionPrincipal: string_type,
   fechaTomaPosesion: Date,
-  fechaConlcusionEncargo: Date,
+  fechaConclusionEncargo: Date,
   telefonoOficina: TelefonoOficinaSchema,
   domicilioMexico: DomicilioMexicoSchema,
   domicilioExtranjero: DomicilioExtranjeroSchema,
