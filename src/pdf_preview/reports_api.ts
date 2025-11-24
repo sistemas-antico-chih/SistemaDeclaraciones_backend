@@ -34,6 +34,7 @@ export default class ReportsAPI {
       res.contentType('application/pdf');
       res.setHeader('Access-Control-Allow-Origin', '*');
 
+      
       return res.status(StatusCodes.OK).send(responsePreview);
     } catch (err) {
       console.log('err: ', err);
