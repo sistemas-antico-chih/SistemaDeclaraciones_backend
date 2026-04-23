@@ -227,10 +227,12 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    /*let anio = new Date().getMonth()+1;
-    if (declaracion.tipoDeclaracion === 'MODIFICACION' && anio === 4){
+    let mes = new Date().getMonth()+1;
+    if (declaracion.tipoDeclaracion === 'MODIFICACION'
+      && mes === 4 //EVITAR REGISTROS EN EL MES DE ABRIL
+      && declaracion.anioEjercicio === 2026){
       throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
-    }*/
+    }
 
     console.log(declaracion.tipoDeclaracion);
     if (declaracion.tipoDeclaracion !== 'AVISO') {
