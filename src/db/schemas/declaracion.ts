@@ -26,7 +26,9 @@ import { VehiculosSchema } from './vehiculos';
 
 const options = {
   collection: 'declaraciones',
-  timestamps: { createdAt: 'createdAt',  updatedAt: 'updatedAt'}
+  timestamps: { createdAt: 'createdAt',  updatedAt: 'updatedAt'},
+  minimize: true,
+  omitUndefined: true
 };
 
 export const DeclaracionSchema = new Schema({

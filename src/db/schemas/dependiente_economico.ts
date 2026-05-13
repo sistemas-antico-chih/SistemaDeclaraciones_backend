@@ -48,4 +48,9 @@ export const DependienteEconomicoSchema = new Schema({
   actividadLaboral: CatalogoSchema,
   actividadLaboralSectorPublico: ActividadLaboralSectorPublicoSchema,
   actividadLaboralSectorPrivadoOtro: ActividadLaboralSectorPrivadoSchema,
+  
+},
+{
+  minimize: true,
+  omitUndefined: true
 });
