@@ -359,35 +359,41 @@ export class DeclaracionRepository {
     }
 
     const cleanEmptyObjects = (obj: any): any => {
-      if (Array.isArray(obj)) {
-        return obj
-          .map(cleanEmptyObjects)
-          .filter(item => item !== undefined);
+
+      // eliminar null y undefined
+      if (obj === null || obj === undefined) {
+        return undefined;
       }
 
-      if (obj && typeof obj === 'object') {
+      // eliminar strings vacíos
+      if (typeof obj === 'string' && obj.trim() === '') {
+        return undefined;
+      }
+
+      // procesar arrays
+      if (Array.isArray(obj)) {
+        const cleanedArray = obj
+          .map(cleanEmptyObjects)
+          .filter(item => item !== undefined);
+
+        return cleanedArray.length > 0 ? cleanedArray : undefined;
+      }
+
+      // procesar objetos
+      if (typeof obj === 'object') {
+        const cleanedObj: any = {};
+
         Object.keys(obj).forEach(key => {
-          obj[key] = cleanEmptyObjects(obj[key]);
+          const cleanedValue = cleanEmptyObjects(obj[key]);
 
-          const value = obj[key];
-
-          const isEmptyObject =
-            value &&
-            typeof value === 'object' &&
-            !Array.isArray(value) &&
-            Object.keys(value).length === 0;
-
-          if (
-            value === undefined ||
-            isEmptyObject
-          ) {
-            delete obj[key];
+          if (cleanedValue !== undefined) {
+            cleanedObj[key] = cleanedValue;
           }
         });
 
-        if (Object.keys(obj).length === 0) {
-          return undefined;
-        }
+        return Object.keys(cleanedObj).length > 0
+          ? cleanedObj
+          : undefined;
       }
 
       return obj;
