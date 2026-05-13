@@ -51,6 +51,5 @@ export const DependienteEconomicoSchema = new Schema({
   
 },
 {
-  minimize: true,
-  omitUndefined: true
+  minimize: true
 });

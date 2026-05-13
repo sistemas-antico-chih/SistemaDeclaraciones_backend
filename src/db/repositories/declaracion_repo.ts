@@ -134,19 +134,19 @@ export class DeclaracionRepository {
       throw new CreateError.NotFound(`User[${userID}] does not exist.`);
     }
 
-      const filter = {
-        tipoDeclaracion: tipoDeclaracion,
-        declaracionCompleta: declaracionCompleta,
-        firmada: false,
-        owner: user,
-      }
-    
-      if(filter.tipoDeclaracion==='AVISO'){
-        filter.declaracionCompleta = !declaracionCompleta;
-      }
-      
+    const filter = {
+      tipoDeclaracion: tipoDeclaracion,
+      declaracionCompleta: declaracionCompleta,
+      firmada: false,
+      owner: user,
+    }
 
-    
+    if (filter.tipoDeclaracion === 'AVISO') {
+      filter.declaracionCompleta = !declaracionCompleta;
+    }
+
+
+
     //console.log("filter: "+filter.tipoDeclaracion+' '+filter.declaracionCompleta);
     //algo
     //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
@@ -227,10 +227,10 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    let mes = new Date().getMonth()+1;
+    let mes = new Date().getMonth() + 1;
     if (declaracion.tipoDeclaracion === 'MODIFICACION'
       && mes === 4 //EVITAR REGISTROS EN EL MES DE ABRIL
-      && declaracion.anioEjercicio === 2026){
+      && declaracion.anioEjercicio === 2026) {
       throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
     }
 
@@ -357,6 +357,43 @@ export class DeclaracionRepository {
     } else if (declaracion.firmada) {
       throw new CreateError.NotAcceptable(`Declaracion[${declaracionID}] is already signed, it cannot be updated.`);
     }
+
+    const cleanEmptyObjects = (obj: any): any => {
+      if (Array.isArray(obj)) {
+        return obj
+          .map(cleanEmptyObjects)
+          .filter(item => item !== undefined);
+      }
+
+      if (obj && typeof obj === 'object') {
+        Object.keys(obj).forEach(key => {
+          obj[key] = cleanEmptyObjects(obj[key]);
+
+          const value = obj[key];
+
+          const isEmptyObject =
+            value &&
+            typeof value === 'object' &&
+            !Array.isArray(value) &&
+            Object.keys(value).length === 0;
+
+          if (
+            value === undefined ||
+            isEmptyObject
+          ) {
+            delete obj[key];
+          }
+        });
+
+        if (Object.keys(obj).length === 0) {
+          return undefined;
+        }
+      }
+
+      return obj;
+    };
+
+    props = cleanEmptyObjects(props);
 
     const filter = {
       _id: declaracionID,
