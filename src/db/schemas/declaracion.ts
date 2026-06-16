@@ -35,7 +35,7 @@ export const DeclaracionSchema = new Schema({
     type: Number,
     required: false,
   },
-  extemporanea: {
+  esExtemporanea: {
     type: Boolean,
     default: false
   },

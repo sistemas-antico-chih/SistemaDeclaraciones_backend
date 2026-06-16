@@ -641,7 +641,7 @@ input DeclaracionesFilterInput {
 
 input DeclaracionSeccionesInput {
   anioEjercicio: Int
-  extemporanea: Boolean
+  esExtemporanea: Boolean
   datosGenerales: DatosGeneralesInput
   domicilioDeclarante: DomicilioDeclaranteInput
   datosCurricularesDeclarante: DatosCurricularesDeclaranteInput
