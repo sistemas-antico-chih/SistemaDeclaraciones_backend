@@ -653,6 +653,7 @@ type Declaracion {
   updatedAt: Date!
   owner: User!
   anioEjercicio: Int
+  extemporanea: Boolean
   datosGenerales: DatosGenerales
   domicilioDeclarante: DomicilioDeclarante
   datosCurricularesDeclarante: DatosCurricularesDeclarante

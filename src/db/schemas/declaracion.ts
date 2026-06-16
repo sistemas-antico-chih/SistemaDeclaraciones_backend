@@ -26,7 +26,7 @@ import { VehiculosSchema } from './vehiculos';
 
 const options = {
   collection: 'declaraciones',
-  timestamps: { createdAt: 'createdAt',  updatedAt: 'updatedAt'},
+  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
   minimize: true
 };
 
@@ -34,6 +34,10 @@ export const DeclaracionSchema = new Schema({
   anioEjercicio: {
     type: Number,
     required: false,
+  },
+  extemporanea: {
+    type: Boolean,
+    default: false
   },
   datosGenerales: DatosGeneralesSchema,
   domicilioDeclarante: DomicilioDeclaranteSchema,
