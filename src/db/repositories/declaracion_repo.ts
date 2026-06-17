@@ -401,6 +401,44 @@ export class DeclaracionRepository {
 
     props = cleanEmptyObjects(props);
 
+    // Calcular extemporaneidad para INICIAL y CONCLUSION
+    if (props?.datosEmpleoCargoComision?.fechaTomaPosesion) {
+
+      const fechaTomaPosesion = new Date(
+        props.datosEmpleoCargoComision.fechaTomaPosesion
+      );
+
+      const hoy = new Date();
+
+      const diferenciaMs =
+        hoy.getTime() - fechaTomaPosesion.getTime();
+
+      const diferenciaDias =
+        Math.floor(
+          diferenciaMs / (1000 * 60 * 60 * 24)
+        );
+
+      if (
+        declaracion.tipoDeclaracion === 'INICIAL' ||
+        declaracion.tipoDeclaracion === 'CONCLUSION'
+      ) {
+
+        props.esExtemporanea =
+          diferenciaDias > 60;
+
+      }
+
+    }
+
+    console.log(
+      'Tipo:',
+      declaracion.tipoDeclaracion,
+      'Fecha:',
+      fechaTomaPosesion,
+      'Dias:',
+      diferenciaDias
+    );
+
     const filter = {
       _id: declaracionID,
       firmada: false
