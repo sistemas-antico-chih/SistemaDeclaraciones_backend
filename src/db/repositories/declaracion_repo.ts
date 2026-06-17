@@ -336,44 +336,88 @@ export class DeclaracionRepository {
 
     props = cleanEmptyObjects(props);
 
-    const anioActual = new Date().getFullYear();
+    // Calcular extemporaneidad
+    const hoy = new Date();
 
-    if (declaracion.tipoDeclaracion === 'MODIFICACION') {
+    if (
+      declaracion.tipoDeclaracion === 'INICIAL' ||
+      declaracion.tipoDeclaracion === 'CONCLUSION'
+    ) {
 
-      // Si no viene marcada como extemporánea,
-      // siempre forzamos el año actual
-      if (!props.esExtemporanea) {
-        props.anioEjercicio = anioActual;
-      }
+      if (props?.datosEmpleoCargoComision?.fechaTomaPosesion) {
 
-    }
-
-    // Calcular extemporaneidad para INICIAL y CONCLUSION
-    if (props?.datosEmpleoCargoComision?.fechaTomaPosesion) {
-
-      const fechaTomaPosesion = new Date(
-        props.datosEmpleoCargoComision.fechaTomaPosesion
-      );
-
-      const hoy = new Date();
-
-      const diferenciaMs =
-        hoy.getTime() - fechaTomaPosesion.getTime();
-
-      const diferenciaDias =
-        Math.floor(
-          diferenciaMs / (1000 * 60 * 60 * 24)
+        const fechaTomaPosesion = new Date(
+          props.datosEmpleoCargoComision.fechaTomaPosesion
         );
 
-      if (
-        declaracion.tipoDeclaracion === 'INICIAL' ||
-        declaracion.tipoDeclaracion === 'CONCLUSION'
-      ) {
+        const diferenciaMs =
+          hoy.getTime() - fechaTomaPosesion.getTime();
+
+        const diferenciaDias =
+          Math.floor(
+            diferenciaMs / (1000 * 60 * 60 * 24)
+          );
 
         props.esExtemporanea =
           diferenciaDias > 60;
 
+        console.log(
+          'Tipo:',
+          declaracion.tipoDeclaracion,
+          'Dias:',
+          diferenciaDias,
+          'Extemporanea:',
+          props.esExtemporanea
+        );
       }
+    }
+
+    if (declaracion.tipoDeclaracion === 'MODIFICACION') {
+
+      const anioActual = hoy.getFullYear();
+
+      const fechaChihuahua = new Date(
+        hoy.toLocaleString('en-US', {
+          timeZone: 'America/Chihuahua'
+        })
+      );
+
+      const inicioJunio = new Date(
+        fechaChihuahua.getFullYear(),
+        5,
+        1,
+        0,
+        0,
+        0
+      );
+
+      if (
+        declaracion.anioEjercicio &&
+        declaracion.anioEjercicio < anioActual
+      ) {
+
+        props.esExtemporanea = true;
+
+      } else if (
+        declaracion.anioEjercicio === anioActual &&
+        fechaChihuahua >= inicioJunio
+      ) {
+
+        props.esExtemporanea = true;
+
+      } else {
+
+        props.esExtemporanea = false;
+
+      }
+
+      console.log(
+        'MODIFICACION',
+        'anioEjercicio:',
+        declaracion.anioEjercicio,
+        'Extemporanea:',
+        props.esExtemporanea
+      );
     }
 
     const filter = {
