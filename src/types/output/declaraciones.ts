@@ -632,6 +632,7 @@ interface Fideicomisos {
 
 export interface DeclaracionSecciones {
   anioEjercicio?: number;
+  esExtemporanea?: boolean;
   datosGenerales?: DatosGenerales;
   domicilioDeclarante?: DomicilioDeclarante;
   datosCurricularesDeclarante?: DatosCurricularesDeclarante;

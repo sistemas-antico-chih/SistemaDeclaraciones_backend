@@ -427,10 +427,7 @@ export class DeclaracionRepository {
           diferenciaDias > 60;
 
       }
-
-    }
-
-    console.log(
+      console.log(
       'Tipo:',
       declaracion.tipoDeclaracion,
       'Fecha:',
@@ -438,6 +435,7 @@ export class DeclaracionRepository {
       'Dias:',
       diferenciaDias
     );
+    }
 
     const filter = {
       _id: declaracionID,
