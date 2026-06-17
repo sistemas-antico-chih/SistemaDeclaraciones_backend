@@ -81,27 +81,6 @@ export class DeclaracionRepository {
       return data;
     }
 
-    // TODO: validaciones para regresar los valores correctos para hasMore, hasNextPage, hasPrevPage
-
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-
-    // filter = filter || {};
-
-    // const declaraciones = await DeclaracionModel.paginate({
-    //   query: { ...filter },
-    //   sort: { createdAt: 'desc' },
-    //   populate: 'owner',
-    //   page: page + 1,
-    //   limit: Math.min(limit, 100)
-    // });
-    // if (declaraciones) {
-    //   return declaraciones;
-    // }
-
-    // return { docs: [], page, limit, hasMore: false, hasNextPage: false, hasPrevPage: false };
     return data;
   }
 
@@ -145,50 +124,6 @@ export class DeclaracionRepository {
       filter.declaracionCompleta = !declaracionCompleta;
     }
 
-
-
-    //console.log("filter: "+filter.tipoDeclaracion+' '+filter.declaracionCompleta);
-    //algo
-    //var cont = await DeclaracionModel.countDocuments({ 'owner': user._id, 'tipoDeclaracion': 'INICIAL', 'firmada': true });
-
-    /*let anio = new Date().getFullYear();
-    if (tipoDeclaracion == 'MODIFICACION') {
-      anio = anio;
-    }
-
-    var aux = await DeclaracionModel.countDocuments({ 'owner': user._id });
-    var declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
-    var aux2 = await DeclaracionModel.countDocuments({ 'owner': user._id });
-    if (aux === aux2) {
-      user.declaraciones.push(declaracion);
-      user.save();
-    }
-    else if (aux !== aux2) {
-      if (user.primerApellido === "X") {
-        user.primerApellido = "";
-      }
-      if (user.segundoApellido === "X") {
-        user.segundoApellido = "";
-      }
-
-      declaracion = await DeclaracionModel.findOneAndUpdate(filter, {
-        $set: {
-          anioEjercicio: anio,
-          datosGenerales: {
-            nombre: user.nombre,
-            primerApellido: user.primerApellido,
-            segundoApellido: user.segundoApellido,
-            curp: user.curp,
-            rfc: {
-              rfc: user.rfc.substring(0, 10),
-              homoClave: user.rfc.substring(10, 13)
-            }
-          }
-        }
-      }, { new: true, upsert: true });
-      user.declaraciones.push(declaracion);
-      user.save();
-    }*/
     const declaracion = await DeclaracionModel.findOneAndUpdate(filter, {}, { new: true, upsert: true });
     user.declaraciones.push(declaracion);
     user.save();
@@ -401,6 +336,18 @@ export class DeclaracionRepository {
 
     props = cleanEmptyObjects(props);
 
+    const anioActual = new Date().getFullYear();
+
+    if (declaracion.tipoDeclaracion === 'MODIFICACION') {
+
+      // Si no viene marcada como extemporánea,
+      // siempre forzamos el año actual
+      if (!props.esExtemporanea) {
+        props.anioEjercicio = anioActual;
+      }
+
+    }
+
     // Calcular extemporaneidad para INICIAL y CONCLUSION
     if (props?.datosEmpleoCargoComision?.fechaTomaPosesion) {
 
@@ -427,14 +374,6 @@ export class DeclaracionRepository {
           diferenciaDias > 60;
 
       }
-      console.log(
-      'Tipo:',
-      declaracion.tipoDeclaracion,
-      'Fecha:',
-      fechaTomaPosesion,
-      'Dias:',
-      diferenciaDias
-    );
     }
 
     const filter = {
