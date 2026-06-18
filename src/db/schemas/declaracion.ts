@@ -22,7 +22,7 @@ import { RepresentacionesSchema } from './representaciones';
 import { Schema } from 'mongoose';
 import { TipoDeclaracion } from '../../types/enums';
 import { VehiculosSchema } from './vehiculos';
-import { NotaAclaratoriaSchema } from './nota_aclaratoria';
+//import { NotaAclaratoriaSchema } from './nota_aclaratoria';
 
 
 const options = {
