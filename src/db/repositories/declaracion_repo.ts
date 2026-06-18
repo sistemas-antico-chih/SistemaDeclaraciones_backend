@@ -288,6 +288,29 @@ export class DeclaracionRepository {
       }
     }
 
+    // Recalcular extemporaneidad definitiva al firmar
+
+    if (declaracion.tipoDeclaracion === 'MODIFICACION') {
+
+      const fechaActual = new Date();
+      const anioActual = fechaActual.getFullYear();
+
+      // 01 de junio 00:00:00
+      const inicioJunio = new Date(
+        anioActual,
+        5,
+        1,
+        0,
+        0,
+        0
+      );
+
+      declaracion.esExtemporanea =
+        declaracion.anioEjercicio < anioActual ||
+        fechaActual >= inicioJunio;
+
+    }
+
     declaracion.firmada = true;
     declaracion.save();
 
