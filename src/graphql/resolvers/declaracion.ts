@@ -48,6 +48,24 @@ export default {
     },
     firmarDeclaracion(_: unknown, args: { id: string; password: string }, context: Context): Promise<Record<string, any> | null> {
       return DeclaracionRepository.sign(args.id, args.password, context.user.id);
-    }
+    },
+    agregarNotaAclaratoria(
+      _: unknown,
+      args: {
+        id: string;
+        nota: {
+          seccion: string;
+          nota: string;
+        };
+      },
+      context: Context
+    ): Promise<Declaracion> {
+      return DeclaracionRepository.agregarNotaAclaratoria(
+        args.id,
+        context.user.id,
+        args.nota.seccion,
+        args.nota.nota
+      );
+    },
   }
 };
