@@ -292,10 +292,15 @@ export class DeclaracionRepository {
 
     if (declaracion.tipoDeclaracion === 'MODIFICACION') {
 
-      const fechaActual = new Date();
-      const anioActual = fechaActual.getFullYear();
+      const fechaChihuahua = new Date(
+        new Date().toLocaleString(
+          'en-US',
+          { timeZone: 'America/Chihuahua' }
+        )
+      );
 
-      // 01 de junio 00:00:00
+      const anioActual = fechaChihuahua.getFullYear();
+
       const inicioJunio = new Date(
         anioActual,
         5,
@@ -305,10 +310,13 @@ export class DeclaracionRepository {
         0
       );
 
-      declaracion.esExtemporanea =
-        declaracion.anioEjercicio < anioActual ||
-        fechaActual >= inicioJunio;
+      if (declaracion.anioEjercicio) {
 
+        declaracion.esExtemporanea =
+          declaracion.anioEjercicio < anioActual ||
+          fechaChihuahua >= inicioJunio;
+
+      }
     }
 
     declaracion.firmada = true;
