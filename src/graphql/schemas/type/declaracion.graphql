@@ -644,6 +644,11 @@ type DeclaracionMetadata {
   owner: User!
 }
 
+type NotaAclaratoriaItem {
+  nota: String!
+  fecha: DateTime!
+}
+
 type Declaracion {
   _id: ID!
   firmada: Boolean!
@@ -676,4 +681,5 @@ type Declaracion {
   clientesPrincipales: ClientesPrincipales
   beneficiosPrivados: BeneficiosPrivados
   fideicomisos: Fideicomisos
+  notasAclaratorias: JSON
 }

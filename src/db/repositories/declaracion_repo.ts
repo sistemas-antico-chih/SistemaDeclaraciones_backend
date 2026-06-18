@@ -162,19 +162,41 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
-    let mes = new Date().getMonth() + 1;
-    if (declaracion.tipoDeclaracion === 'MODIFICACION'
-      && mes === 4 //EVITAR REGISTROS EN EL MES DE ABRIL
-      && declaracion.anioEjercicio === 2026) {
-      throw new CreateError.Forbidden('LAS DECLARACIONES DE MODIFICACIÓN SE REALIZAN EN MAYO');
+    // VALIDACIÓN DE FIRMA PARA MODIFICACIÓN
+
+    if (declaracion.tipoDeclaracion === 'MODIFICACION') {
+
+      const fechaChihuahua = new Date(
+        new Date().toLocaleString(
+          'en-US',
+          { timeZone: 'America/Chihuahua' }
+        )
+      );
+
+      const anioActual = fechaChihuahua.getFullYear();
+
+      const inicioMayo = new Date(anioActual, 4, 1, 0, 0, 0);
+
+      // MODIFICACIÓN DEL AÑO ACTUAL
+      if (declaracion.anioEjercicio === anioActual) {
+
+        if (fechaChihuahua < inicioMayo) {
+
+          throw new CreateError.Forbidden(
+            'LAS DECLARACIONES DE MODIFICACIÓN DEL EJERCICIO ACTUAL SOLO PUEDEN FIRMARSE A PARTIR DEL 01 DE MAYO'
+          );
+
+        }
+
+      }
+
     }
 
-    console.log(declaracion.tipoDeclaracion);
     if (declaracion.tipoDeclaracion !== 'AVISO') {
       if (declaracion.datosGenerales) {
         if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
-          throw new CreateError.Forbidden('FVVFFALTA CAPTURAR DATOS GENERALES');
+          throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
         }
       }
       if (!declaracion.datosGenerales) {

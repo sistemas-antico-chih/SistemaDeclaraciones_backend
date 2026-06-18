@@ -22,6 +22,7 @@ import { RepresentacionesSchema } from './representaciones';
 import { Schema } from 'mongoose';
 import { TipoDeclaracion } from '../../types/enums';
 import { VehiculosSchema } from './vehiculos';
+import { NotaAclaratoriaSchema } from './nota_aclaratoria';
 
 
 const options = {
@@ -81,5 +82,9 @@ export const DeclaracionSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-  }
+  },
+  notasAclaratorias: {
+    type: Schema.Types.Mixed,
+    default: {}
+  },
 }, options);

@@ -639,6 +639,10 @@ input DeclaracionesFilterInput {
   declaracionCompleta: Boolean
 }
 
+input NotaAclaratoriaItemInput {
+  nota: String!
+}
+
 input DeclaracionSeccionesInput {
   anioEjercicio: Int
   esExtemporanea: Boolean
@@ -664,4 +668,10 @@ input DeclaracionSeccionesInput {
   clientesPrincipales: ClientesPrincipalesInput
   beneficiosPrivados: BeneficiosPrivadosInput
   fideicomisos: FideicomisosInput
+  notasAclaratorias: JSON
+}
+
+input AgregarNotaAclaratoriaInput {
+  seccion: String!
+  nota: String!
 }

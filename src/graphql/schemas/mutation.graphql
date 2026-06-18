@@ -14,6 +14,12 @@ type Mutation {
   "Sign declaration"
   firmarDeclaracion(id: ID!, password: String!): JSON @hasRole(roles: [USER])
 
+  "Agregar nota aclaratoria"
+  agregarNotaAclaratoria(
+    id: ID!,
+    nota: AgregarNotaAclaratoriaInput!
+  ): Declaracion @hasRole(roles: [USER])
+
   "Reset password"
   resetPassword(token: String!, newPassword: LimitedString!): Boolean!
 

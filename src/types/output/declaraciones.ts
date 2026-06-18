@@ -655,6 +655,7 @@ export interface DeclaracionSecciones {
   clientesPrincipales?: ClientesPrincipales;
   beneficiosPrivados?: BeneficiosPrivados;
   fideicomisos?: Fideicomisos;
+  notasAclaratorias?: any;  
 }
 
 export interface Declaracion extends DeclaracionSecciones {
