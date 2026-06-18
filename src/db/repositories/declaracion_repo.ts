@@ -459,4 +459,52 @@ export class DeclaracionRepository {
 
     return updatedDeclaracion;
   }
+
+  public static async agregarNotaAclaratoria(
+    declaracionID: string,
+    userID: string,
+    seccion: string,
+    nota: string
+  ): Promise<DeclaracionDocument> {
+
+    const declaracion = await DeclaracionModel.findById({
+      _id: declaracionID
+    });
+
+    if (!declaracion) {
+      throw new CreateError.NotFound(
+        `Declaration[${declaracionID}] does not exist.`
+      );
+    }
+
+    if (declaracion.owner._id != userID) {
+      throw new CreateError.Forbidden(
+        `User: ${userID} is not allowed`
+      );
+    }
+
+    if (!declaracion.notasAclaratorias) {
+      declaracion.notasAclaratorias = {};
+    }
+
+    if (!declaracion.notasAclaratorias[seccion]) {
+      declaracion.notasAclaratorias[seccion] = {
+        totalCambios: 0,
+        historial: []
+      };
+    }
+
+    declaracion.notasAclaratorias[seccion].historial.push({
+      nota,
+      fecha: new Date()
+    });
+
+    declaracion.notasAclaratorias[seccion].totalCambios += 1;
+
+    declaracion.markModified('notasAclaratorias');
+
+    await declaracion.save();
+
+    return declaracion;
+  }
 }
