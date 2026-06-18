@@ -646,7 +646,7 @@ type DeclaracionMetadata {
 
 type NotaAclaratoriaItem {
   nota: String!
-  fecha: DateTime!
+  fecha: Date!
 }
 
 type Declaracion {
