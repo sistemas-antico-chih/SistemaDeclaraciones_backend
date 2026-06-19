@@ -515,7 +515,9 @@ export class DeclaracionRepository {
     }
 
     if (!declaracion.notasAclaratorias) {
-      declaracion.notasAclaratorias = {};
+      declaracion.notasAclaratorias = {
+        totalCambios: 0
+      };
     }
 
     if (!declaracion.notasAclaratorias[seccion]) {
@@ -530,7 +532,14 @@ export class DeclaracionRepository {
       fecha: new Date()
     });
 
+    if (
+      declaracion.notasAclaratorias.totalCambios === undefined
+    ) {
+      declaracion.notasAclaratorias.totalCambios = 0;
+    }
+
     declaracion.notasAclaratorias[seccion].totalCambios += 1;
+    declaracion.notasAclaratorias.totalCambios += 1;
 
     declaracion.markModified('notasAclaratorias');
 
