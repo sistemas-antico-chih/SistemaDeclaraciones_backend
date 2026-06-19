@@ -60,6 +60,8 @@ export default {
       },
       context: Context
     ): Promise<Declaracion> {
+      console.log('ARGS RECIBIDOS:', args);
+      
       return DeclaracionRepository.agregarNotaAclaratoria(
         args.id,
         context.user.id,
