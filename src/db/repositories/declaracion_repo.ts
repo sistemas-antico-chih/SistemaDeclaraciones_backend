@@ -270,22 +270,89 @@ export class DeclaracionRepository {
         }
       }
     }
+
     if (declaracion.tipoDeclaracion === 'AVISO') {
       if (declaracion.datosGenerales) {
-        if (!declaracion.datosGenerales.paisNacimiento || !declaracion.datosGenerales.correoElectronico
+        if (!declaracion.datosGenerales.paisNacimiento
+          || !declaracion.datosGenerales.correoElectronico
           || !declaracion.datosGenerales.telefono) {
           throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
         }
       }
+
       if (!declaracion.datosGenerales) {
         throw new CreateError.Forbidden('FALTA CAPTURAR DATOS GENERALES');
       }
+
       if (!declaracion.domicilioDeclarante) {
         throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DECLARANTE');
       }
+
       if (!declaracion.datosEmpleoCargoComision) {
         throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
       }
+
+            // VALIDACIONES DE AVISO
+
+      const MENSAJE_AVISO =
+        'HAN PASADO 60 DÍAS NATURALES, DEBERÁ REALIZAR REGISTRO DE CONCLUSIÓN';
+
+      const fechaConclusion =
+        declaracion.datosEmpleoCargoComision.fechaConclusionEncargo;
+
+      const fechaTomaPosesion =
+        declaracion.datosEmpleoCargoComision.fechaTomaPosesion;
+
+      if (fechaConclusion) {
+
+        const fechaConclusionDate = new Date(fechaConclusion);
+        fechaConclusionDate.setHours(0, 0, 0, 0);
+
+        const hoy = new Date(
+          new Date().toLocaleString(
+            'en-US',
+            { timeZone: 'America/Chihuahua' }
+          )
+        );
+        hoy.setHours(0, 0, 0, 0);
+
+        // VALIDACIÓN 1:
+        // Hoy vs Fecha Conclusión
+
+        const diasDesdeConclusion = Math.floor(
+          (
+            hoy.getTime() -
+            fechaConclusionDate.getTime()
+          ) / (1000 * 60 * 60 * 24)
+        );
+
+        if (diasDesdeConclusion > 60) {
+          throw new CreateError.Forbidden(MENSAJE_AVISO);
+        }
+
+        // VALIDACIÓN 2:
+        // Fecha Toma Posesión vs Fecha Conclusión
+
+        if (fechaTomaPosesion) {
+
+          const fechaTomaPosesionDate = new Date(fechaTomaPosesion);
+          fechaTomaPosesionDate.setHours(0, 0, 0, 0);
+
+          const diferenciaEntreFechas = Math.floor(
+            (
+              fechaTomaPosesionDate.getTime() -
+              fechaConclusionDate.getTime()
+            ) / (1000 * 60 * 60 * 24)
+          );
+
+          if (diferenciaEntreFechas >= 61) {
+            throw new CreateError.Forbidden(MENSAJE_AVISO);
+          }
+
+        }
+
+      }
+      
     }
 
     // Recalcular extemporaneidad definitiva al firmar
