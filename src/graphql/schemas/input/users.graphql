@@ -5,6 +5,7 @@ input UserProfileInput {
   institucion: CatalogoInput
   curp: LimitedString!
   rfc: LimitedString!
+  username: LimitedString!
 }
 
 input UserSignUpInput {
