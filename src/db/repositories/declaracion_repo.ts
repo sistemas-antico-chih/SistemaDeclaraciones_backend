@@ -1,5 +1,13 @@
 import { BCrypt, SendgridClient } from '../../library';
-import { Context, DeclaracionDocument, DeclaracionSecciones, DeclaracionesFilterInput, Pagination, PaginationInputOptions, TipoDeclaracion } from '../../types';
+import { 
+  Context, 
+  DeclaracionDocument, 
+  DeclaracionSecciones, 
+  DeclaracionesFilterInput, 
+  Pagination, 
+  PaginationInputOptions, 
+  TipoDeclaracion,
+ } from '../../types';
 import CreateError from 'http-errors';
 import DeclaracionModel from '../models/declaracion_model';
 import InstitucionesAPI from '../../routers/instituciones_api';

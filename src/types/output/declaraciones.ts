@@ -115,6 +115,7 @@ interface DatosEmpleoCargoComision {
   nivelEmpleoCargoComision?: string;
   funcionPrincipal?: string;
   fechaTomaPosesion?: string;
+  fechaConclusionEncargo? : string;
   telefonoOficina?: TelefonoOficina;
   domicilioMexico?: DomicilioMexico;
   domicilioExtranjero?: DomicilioExtranjero;
