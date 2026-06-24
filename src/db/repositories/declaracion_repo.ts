@@ -15,6 +15,8 @@ import ReportsClient from '../../pdf_preview/reports_client';
 import { Role } from './../../types/enums';
 import { StatusCodes } from 'http-status-codes';
 import UserModel from '../models/user_model';
+import { StatsRepository } from '../repositories/stats_repo';
+
 
 export class DeclaracionRepository {
   public static async delete(declaracionID: string, userID: string): Promise<boolean> {
@@ -435,6 +437,50 @@ export class DeclaracionRepository {
           );
 
         }
+
+      }
+
+    }
+
+    const statsTipo =
+      await StatsRepository.getStatsTipo(userID);
+
+    const iniciales =
+      statsTipo.counters.find(
+        x => x.tipoDeclaracion === 'INICIAL'
+      )?.count || 0;
+
+    const conclusiones =
+      statsTipo.counters.find(
+        x => x.tipoDeclaracion === 'CONCLUSION'
+      )?.count || 0;
+
+    const saldo =
+      iniciales - conclusiones;
+
+    if (
+      declaracion.tipoDeclaracion === 'INICIAL'
+    ) {
+
+      if (saldo > 0) {
+
+        throw new CreateError.Forbidden(
+          'YA EXISTE UNA DECLARACIÓN INICIAL ACTIVA'
+        );
+
+      }
+
+    }
+
+    if (
+      declaracion.tipoDeclaracion === 'CONCLUSION'
+    ) {
+
+      if (saldo <= 0) {
+
+        throw new CreateError.Forbidden(
+          'NO EXISTE UNA DECLARACIÓN INICIAL ACTIVA PARA GENERAR UNA CONCLUSIÓN'
+        );
 
       }
 
