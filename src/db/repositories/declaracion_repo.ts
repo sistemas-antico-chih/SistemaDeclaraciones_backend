@@ -1,13 +1,13 @@
 import { BCrypt, SendgridClient } from '../../library';
-import { 
-  Context, 
-  DeclaracionDocument, 
-  DeclaracionSecciones, 
-  DeclaracionesFilterInput, 
-  Pagination, 
-  PaginationInputOptions, 
+import {
+  Context,
+  DeclaracionDocument,
+  DeclaracionSecciones,
+  DeclaracionesFilterInput,
+  Pagination,
+  PaginationInputOptions,
   TipoDeclaracion,
- } from '../../types';
+} from '../../types';
 import CreateError from 'http-errors';
 import DeclaracionModel from '../models/declaracion_model';
 import InstitucionesAPI from '../../routers/instituciones_api';
@@ -300,7 +300,7 @@ export class DeclaracionRepository {
         throw new CreateError.Forbidden('FALTA CAPTURAR DOMICILIO DE EMPLEO');
       }
 
-            // VALIDACIONES DE AVISO
+      // VALIDACIONES DE AVISO
 
       const MENSAJE_AVISO =
         'HAN PASADO 60 DÍAS NATURALES, DEBERÁ REALIZAR REGISTRO DE CONCLUSIÓN';
@@ -360,12 +360,53 @@ export class DeclaracionRepository {
         }
 
       }
-      
+
     }
 
     // Recalcular extemporaneidad definitiva al firmar
 
     if (declaracion.tipoDeclaracion === 'MODIFICACION') {
+
+      const declaracionesMismoEjercicio =
+        await DeclaracionModel.find({
+          owner: declaracion.owner,
+          tipoDeclaracion: 'MODIFICACION',
+          anioEjercicio: declaracion.anioEjercicio,
+          firmada: true,
+          _id: { $ne: declaracion._id }
+        });
+
+      const existeCompleta =
+        declaracionesMismoEjercicio.some(
+          d => d.declaracionCompleta === true
+        );
+
+      const existeSimple =
+        declaracionesMismoEjercicio.some(
+          d => d.declaracionCompleta === false
+        );
+
+      if (declaracion.declaracionCompleta === true) {
+
+        if (existeCompleta) {
+          throw new CreateError.Forbidden(
+            `YA EXISTE UNA DECLARACIÓN DE MODIFICACIÓN COMPLETA FIRMADA PARA EL EJERCICIO ${declaracion.anioEjercicio}`
+          );
+        }
+
+      }
+
+      if (declaracion.declaracionCompleta === false) {
+
+        if (existeCompleta || existeSimple) {
+          throw new CreateError.Forbidden(
+            `YA EXISTE UNA DECLARACIÓN DE MODIFICACIÓN FIRMADA PARA EL EJERCICIO ${declaracion.anioEjercicio}`
+          );
+        }
+
+      }
+
+      // TU VALIDACIÓN ACTUAL DE MAYO
 
       const fechaChihuahua = new Date(
         new Date().toLocaleString(
@@ -376,22 +417,27 @@ export class DeclaracionRepository {
 
       const anioActual = fechaChihuahua.getFullYear();
 
-      const inicioJunio = new Date(
+      const inicioMayo = new Date(
         anioActual,
-        5,
+        4,
         1,
         0,
         0,
         0
       );
 
-      if (declaracion.anioEjercicio) {
+      if (declaracion.anioEjercicio === anioActual) {
 
-        declaracion.esExtemporanea =
-          declaracion.anioEjercicio < anioActual ||
-          fechaChihuahua >= inicioJunio;
+        if (fechaChihuahua < inicioMayo) {
+
+          throw new CreateError.Forbidden(
+            'LAS DECLARACIONES DE MODIFICACIÓN DEL EJERCICIO ACTUAL SOLO PUEDEN FIRMARSE A PARTIR DEL 01 DE MAYO'
+          );
+
+        }
 
       }
+
     }
 
     declaracion.firmada = true;
