@@ -53,6 +53,7 @@ export default {
       _: unknown,
       args: {
         id: string;
+        password: string;
         nota: {
           seccion: string;
           nota: string;
@@ -63,6 +64,7 @@ export default {
       return DeclaracionRepository.agregarNotaAclaratoria(
         args.id,
         context.user.id,
+        args.password,
         args.nota.seccion,
         args.nota.nota
       );

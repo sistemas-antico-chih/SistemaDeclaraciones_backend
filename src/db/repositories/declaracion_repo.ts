@@ -661,6 +661,7 @@ export class DeclaracionRepository {
   public static async agregarNotaAclaratoria(
     declaracionID: string,
     userID: string,
+    password: string,
     seccion: string,
     nota: string
   ): Promise<DeclaracionDocument> {

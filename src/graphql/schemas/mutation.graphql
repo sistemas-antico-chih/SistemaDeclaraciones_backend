@@ -17,6 +17,7 @@ type Mutation {
   "Agregar nota aclaratoria"
   agregarNotaAclaratoria(
     id: ID!,
+    password: LimitedString!
     nota: AgregarNotaAclaratoriaInput!
   ): Declaracion @hasRole(roles: [USER])
 
