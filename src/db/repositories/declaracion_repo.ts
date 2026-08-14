@@ -782,6 +782,5 @@ export class DeclaracionRepository {
 
     return declaracion;
 
-    return declaracion;
   }
 }
