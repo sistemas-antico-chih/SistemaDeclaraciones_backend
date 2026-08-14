@@ -752,28 +752,15 @@ export class DeclaracionRepository {
 
     try {
 
-      const nombreCompleto = [
-        user.nombre,
-        user.primerApellido,
-        user.segundoApellido
-      ]
-        .filter(Boolean)
-        .join(' ');
-
-      const fechaActual = new Date().toLocaleString(
-        'es-MX',
-        {
-          timeZone: 'America/Chihuahua'
-        }
-      );
+      const fechaActual = new Date();
 
       const responseNota =
         await ReportsClient.getNotaAclaratoria(
+          user,
           declaracion._id.toString(),
-          nombreCompleto,
-          fechaActual,
           seccion,
-          nota
+          nota,
+          fechaActual
         );
 
       await SendgridClient.sendNotaAclaratoriaFile(
@@ -792,6 +779,8 @@ export class DeclaracionRepository {
         'La nota aclaratoria fue guardada, pero no fue posible generar o enviar el PDF.'
       );
     }
+
+    return declaracion;
 
     return declaracion;
   }

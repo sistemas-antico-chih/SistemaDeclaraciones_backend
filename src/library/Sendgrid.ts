@@ -55,8 +55,12 @@ export class SendgridClient {
     attachment: string
   ): Promise<void> {
 
-    const now = new Date(Date.now());
-    const today = now.toISOString();
+    const now = new Date();
+
+    const fecha = now
+      .toLocaleDateString('sv-SE', {
+        timeZone: 'America/Chihuahua'
+      });
 
     const message = {
       to: email,
@@ -65,7 +69,7 @@ export class SendgridClient {
       text: 'Se adjunta el acuse correspondiente a la nota aclaratoria registrada.',
       attachments: [{
         content: attachment,
-        filename: `acuse-nota-aclaratoria[${today}].pdf`,
+        filename: `nota-aclaratoria[${fecha}].pdf`,
         type: 'application/pdf',
         disposition: 'attachment'
       }]
