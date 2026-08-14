@@ -695,7 +695,7 @@ export class DeclaracionRepository {
 
     if (!BCrypt.compare(password, user.password)) {
       throw new CreateError.Forbidden(
-        'Provided password does not match.'
+        'LA CONTRASEÑA ES INCORRECTA. VERIFIQUE LA CONTRASEÑA E INTENTE NUEVAMENTE.'
       );
     }
 
