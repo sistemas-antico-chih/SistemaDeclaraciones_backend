@@ -172,6 +172,7 @@ export class DeclaracionRepository {
       throw new CreateError.Forbidden('Provided password does not match.');
     }
 
+
     // VALIDACIÓN DE FIRMA PARA MODIFICACIÓN
 
     if (declaracion.tipoDeclaracion === 'MODIFICACION') {
@@ -679,6 +680,22 @@ export class DeclaracionRepository {
     if (declaracion.owner._id != userID) {
       throw new CreateError.Forbidden(
         `User: ${userID} is not allowed`
+      );
+    }
+
+    const user = await UserModel.findById({
+      _id: userID
+    });
+
+    if (!user) {
+      throw new CreateError.NotFound(
+        `User[${userID}] does not exist.`
+      );
+    }
+
+    if (!BCrypt.compare(password, user.password)) {
+      throw new CreateError.Forbidden(
+        'Provided password does not match.'
       );
     }
 
