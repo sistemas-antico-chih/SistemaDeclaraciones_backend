@@ -683,6 +683,10 @@ export class DeclaracionRepository {
       );
     }
 
+    // ============================================
+    // VALIDAR CONTRASEÑA
+    // ============================================
+
     const user = await UserModel.findById({
       _id: userID
     });
@@ -699,6 +703,10 @@ export class DeclaracionRepository {
       );
     }
 
+    // ============================================
+    // CREAR ESTRUCTURA DE NOTAS ACLARATORIAS
+    // ============================================
+
     if (!declaracion.notasAclaratorias) {
       declaracion.notasAclaratorias = {
         totalCambios: 0
@@ -711,6 +719,10 @@ export class DeclaracionRepository {
         historial: []
       };
     }
+
+    // ============================================
+    // AGREGAR NOTA
+    // ============================================
 
     declaracion.notasAclaratorias[seccion].historial.push({
       nota,
@@ -728,7 +740,58 @@ export class DeclaracionRepository {
 
     declaracion.markModified('notasAclaratorias');
 
+    // ============================================
+    // GUARDAR DECLARACIÓN
+    // ============================================
+
     await declaracion.save();
+
+    // ============================================
+    // GENERAR Y ENVIAR PDF DE NOTA ACLARATORIA
+    // ============================================
+
+    try {
+
+      const nombreCompleto = [
+        user.nombre,
+        user.primerApellido,
+        user.segundoApellido
+      ]
+        .filter(Boolean)
+        .join(' ');
+
+      const fechaActual = new Date().toLocaleString(
+        'es-MX',
+        {
+          timeZone: 'America/Chihuahua'
+        }
+      );
+
+      const responseNota =
+        await ReportsClient.getNotaAclaratoria(
+          declaracion._id.toString(),
+          nombreCompleto,
+          fechaActual,
+          seccion,
+          nota
+        );
+
+      await SendgridClient.sendNotaAclaratoriaFile(
+        user.username,
+        responseNota.toString('base64')
+      );
+
+    } catch (error) {
+
+      console.error(
+        'Error al generar/enviar PDF de nota aclaratoria:',
+        error
+      );
+
+      throw new CreateError.InternalServerError(
+        'La nota aclaratoria fue guardada, pero no fue posible generar o enviar el PDF.'
+      );
+    }
 
     return declaracion;
   }

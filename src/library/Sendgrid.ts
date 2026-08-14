@@ -8,11 +8,11 @@ export class SendgridClient {
   private static async send(message: any): Promise<void> {
     try {
       await Sendgrid.send(message);
-    } catch(e) {
+    } catch (e) {
       throw CreateError(
         StatusCodes.INTERNAL_SERVER_ERROR,
         'Something went wrong at forgotPassword',
-        {debug_info: {error: e}},
+        { debug_info: { error: e } },
       );
     }
   }
@@ -42,6 +42,30 @@ export class SendgridClient {
       attachments: [{
         content: attachment,
         filename: `acuse-declaracion[${today}].pdf`,
+        type: 'application/pdf',
+        disposition: 'attachment'
+      }]
+    };
+
+    await SendgridClient.send(message);
+  }
+
+  public static async sendNotaAclaratoriaFile(
+    email: string,
+    attachment: string
+  ): Promise<void> {
+
+    const now = new Date(Date.now());
+    const today = now.toISOString();
+
+    const message = {
+      to: email,
+      from: `${process.env.SENDGRID_MAIL_SENDER}`,
+      subject: 'Acuse de nota aclaratoria',
+      text: 'Se adjunta el acuse correspondiente a la nota aclaratoria registrada.',
+      attachments: [{
+        content: attachment,
+        filename: `acuse-nota-aclaratoria[${today}].pdf`,
         type: 'application/pdf',
         disposition: 'attachment'
       }]

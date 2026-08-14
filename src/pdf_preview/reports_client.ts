@@ -45,4 +45,32 @@ export default class ReportsClient {
 
     return responsePreview.data;
   }
+
+  public static async getNotaAclaratoria(
+    user: UserDocument,
+    declaracionID: string,
+    seccion: string,
+    nota: string,
+    fecha: Date
+  ): Promise<Buffer> {
+
+    const response = await Axios({
+      method: 'POST',
+      url: `${process.env.REPORTS_URL}/nota-aclaratoria`,
+      timeout: 50000,
+      headers: {
+        'X-Api-Key': `${process.env.REPORTS_API_KEY}`
+      },
+      responseType: 'arraybuffer',
+      data: {
+        owner: user,
+        id: declaracionID,
+        seccion,
+        nota,
+        fecha: fecha.toISOString()
+      }
+    });
+
+    return response.data;
+  }
 }
