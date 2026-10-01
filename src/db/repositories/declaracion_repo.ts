@@ -782,7 +782,7 @@ export class DeclaracionRepository {
 
     try {
 
-      const fechaActual = new Date();
+      //const fechaActual = new Date();
 
       const responseNota =
         await ReportsClient.getNotaAclaratoria(
