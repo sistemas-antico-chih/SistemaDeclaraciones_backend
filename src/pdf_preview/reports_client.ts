@@ -49,9 +49,24 @@ export default class ReportsClient {
   public static async getNotaAclaratoria(
     user: UserDocument,
     declaracionID: string,
+    tipoDeclaracion: string,
+    declaracionCompleta: boolean,
+    esExtemporanea: boolean,
+    anioEjercicio: number,
+    nombre: string,
+    primerApellido: string,
+    segundoApellido: string,
+    curp: string,
+    rfc: string,
+    correoPersonal: string,
+    nombreEntePublico: string,
+    municipio: string,
     seccion: string,
     nota: string,
-    fecha: Date
+    fecha: Date,
+    numeroNota: number,
+    titularOIC: string,
+    cargoTitularOIC: string
   ): Promise<Buffer> {
 
     const response = await Axios({
@@ -65,9 +80,24 @@ export default class ReportsClient {
       data: {
         owner: user,
         id: declaracionID,
+        tipoDeclaracion,
+        declaracionCompleta,
+        esExtemporanea,
+        anioEjercicio,
+        nombre,
+        primerApellido,
+        segundoApellido,
+        curp,
+        rfc,
+        correoPersonal,
+        nombreEntePublico,
+        municipio,
         seccion,
         nota,
-        fecha: fecha.toISOString()
+        fecha: fecha.toISOString(),
+        numeroNota,
+        titularOIC,
+        cargoTitularOIC
       }
     });
 

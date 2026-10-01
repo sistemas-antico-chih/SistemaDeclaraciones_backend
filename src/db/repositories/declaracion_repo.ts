@@ -746,6 +746,36 @@ export class DeclaracionRepository {
 
     await declaracion.save();
 
+    const datosGenerales = declaracion.datosGenerales;
+    const datosEmpleo = declaracion.datosEmpleoCargoComision;
+
+    const rfc = datosGenerales?.rfc
+      ? `${datosGenerales.rfc.rfc || ''}${datosGenerales.rfc.homoClave || ''}`
+      : '';
+
+    const correoPersonal =
+      datosGenerales?.correoElectronico?.personal || '';
+
+    const municipio =
+      datosEmpleo?.municipioAlcaldia?.valor || '';
+
+    const numeroNota =
+      declaracion.notasAclaratorias.totalCambios;
+
+    const institucion = user?.institucion?.clave;
+
+    const insData =
+      InstitucionesAPI.getInstitucionDataByClave(
+        institucion || '',
+        declaracion.tipoDeclaracion
+      );
+
+    const titularOIC =
+      insData?.servidor_publico_recibe?.nombre || '';
+
+    const cargoTitularOIC =
+      insData?.servidor_publico_recibe?.cargo || '';
+
     // ============================================
     // GENERAR Y ENVIAR PDF DE NOTA ACLARATORIA
     // ============================================
@@ -758,9 +788,24 @@ export class DeclaracionRepository {
         await ReportsClient.getNotaAclaratoria(
           user,
           declaracion._id.toString(),
+          declaracion.tipoDeclaracion,
+          declaracion.declaracionCompleta,
+          declaracion.esExtemporanea || false,
+          declaracion.anioEjercicio,
+          datosGenerales?.nombre || '',
+          datosGenerales?.primerApellido || '',
+          datosGenerales?.segundoApellido || '',
+          datosGenerales?.curp || '',
+          rfc,
+          correoPersonal,
+          datosEmpleo?.nombreEntePublico || '',
+          municipio,
           seccion,
           nota,
-          fechaActual
+          new Date(),
+          numeroNota,
+          titularOIC,
+          cargoTitularOIC
         );
 
       await SendgridClient.sendNotaAclaratoriaFile(
