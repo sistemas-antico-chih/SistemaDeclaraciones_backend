@@ -757,7 +757,7 @@ export class DeclaracionRepository {
       datosGenerales?.correoElectronico?.personal || '';
 
     const municipio =
-      datosEmpleo?.municipioAlcaldia?.valor || '';
+      datosEmpleo?.nombreEntePublico || '';
 
     const numeroNota =
       declaracion.notasAclaratorias.totalCambios;
