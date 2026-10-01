@@ -791,7 +791,7 @@ export class DeclaracionRepository {
           declaracion.tipoDeclaracion,
           declaracion.declaracionCompleta,
           declaracion.esExtemporanea || false,
-          declaracion.anioEjercicio,
+          declaracion.anioEjercicio || 2019,
           datosGenerales?.nombre || '',
           datosGenerales?.primerApellido || '',
           datosGenerales?.segundoApellido || '',
